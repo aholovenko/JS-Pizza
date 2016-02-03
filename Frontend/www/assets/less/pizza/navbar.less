@@ -1,0 +1,53 @@
+.navbar {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  background-color: black;
+  opacity: 0.8;
+
+  .navbar-top {
+    padding: 5px;
+    text-align: center;
+
+    margin-left: 27%;
+    display: inline-block;
+    text-weight: bold;
+    color: white;
+  }
+
+  .text1 {
+    font-size: 18px;
+    text-decoration: underline;
+  }
+
+  .text2 {
+    font-size: 28px;
+    margin: 5px 60px;
+    font-family: "Monotype Corsiva";
+    &:hover {
+      color: #fffa70;
+    }
+
+  }
+
+  .text3 {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  @media (max-width: 1000px) {
+
+    .text2 {
+      display: none;
+    }
+
+  }
+
+  @media (max-width: 1200px) {
+
+    .text3 {
+      display: none;
+    }
+
+  }
+}
