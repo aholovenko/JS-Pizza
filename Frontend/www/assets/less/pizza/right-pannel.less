@@ -1,12 +1,15 @@
 .right-pannel {
 
-  background: bisque;
+  background: #f4f4f4;
   position: fixed !important;
-  top: 0;
+  top: 50px;
   right: 0;
   bottom: 0;
-  min-width: 260px;
-  height: 100%;
+  width:305px;
+  min-width: 230px;
+  height: inherit;
+  border: 1px solid #a9a9a9;
+  box-shadow: 0px 0px 10px #7d7d7d;
 
   margin-left: 15px;
   padding: 0px;
@@ -20,13 +23,13 @@
     display: inline-block;
     font-size: 20px;
     margin: 3px 0px;
-    font-family: Forte;
+    font-family: "Goudy Old Style";
   }
   .badge {
     margin-left: 5px;
-    margin-bottom: 5px;
-    font-size: 11px;
-    background-color: #ff7f1c;
+    font-size: 10px;
+    background-color: lighten(@mainColor, 20%);
+    padding: 6px;
   }
   .reset {
     display: inline-block;
@@ -36,8 +39,10 @@
     font-size: 12px;
     padding: 2px;
     width: auto;
-    margin-top: 11px;
+    margin-top: 7px;
+    font-family:Segoe UI Semibold;
   }
+
   .ordered-display {
     overflow-y: auto;
     height: inherit;
@@ -52,7 +57,8 @@
     display: inline-block;
     background-color: white;
     margin: 0px;
-    border: 1px solid grey;
+    border-bottom: 1px solid darken(@mainColor,20%);
+    border-top: 1px solid darken(@mainColor,20%);
     border-radius: 2px;
     width: 100%;
     height: auto;
@@ -62,19 +68,22 @@
 
   .pizza-header {
     padding: 3px;
-    color: #ff7f1c;
+    color: darken(@mainColor, 20%);
     margin: 3px 0px;
-    font-size: 20px;
-    font-family: Forte;
+    font-size: 15px;
+    font-family: "Verdana";
+    font-weight: bold;
   }
   .price {
     font-size: 15px;
     font-weight: bold;
     margin: 0px 3px;
+    font-family: "Segoe UI Semibold";
+    color: darken(@mainColor, 10%);
   }
   .info-pan {
     margin: 5px 3px;
-    font-family: Verdana;
+    font-family: "Segoe UI Symbol";
     font-size: 12px;
 
   }
@@ -119,11 +128,12 @@
   //}
 
   .pan-footer {
-    background: #ff9e82;
+    background: lighten(@mainColor,80%);
     position: inherit;
     right: 0;
     bottom: 0;
-    min-height: 100px;
+    max-height: 100px;
+    border: 2px solid darken(@mainColor, 30%);
 
     width: inherit;
 
@@ -132,9 +142,11 @@
       font-size: 17px;
       margin: 5px;
       float: left;
+      color: darken(@mainColor, 10%);
+      font-family: Verdana;
     }
-    .price {
 
+    .price {
       display: inline-block;
       font-size: 20px;
       font-weight: bold;
@@ -144,15 +156,17 @@
 
     .order {
       display: block;
-      height:55px;
+      height: auto;
       text-align: center;
-      width:170px;
-      font-size:25px;
-      font-family: Verdana;
+      width: 200px;
+      font-size: 20px;
       align-self: center;
-      margin:10px 80px;
-      margin-top: 35px ;
-
+      margin: 10px 90px ;
+      margin-top: 35px;
+      width: 140px;
+      border-radius: 100px;
+      font-family: "Segoe UI Semibold";
+      font-weight: bold;
     }
   }
 }
