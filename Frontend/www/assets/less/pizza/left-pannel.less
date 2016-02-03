@@ -47,34 +47,48 @@
     width: auto;
     height: auto;
     text-align: center;
-    margin-left: 280px;
+    margin-left: 25%;
     margin-bottom: 10px !important;
   }
 
-  @media (max-width: 1310px) {
-    .nav-types{
-      margin-left: 200px;
+  @media (max-width: 1250px) {
+    .nav-types {
+      margin-left: 22%;
     }
   }
 
-  @media (max-width: 1200px) {
-    .nav-types{
-      display:none;
-    }
-  }
-
-  @media (max-width: 1000px) {
-    #icon{
-      width:@img_size/1.4;
-      left:3%;
-    }
-    .navbar-menu {
+  @media (max-width: 1210px) {
+    .nav-types {
       display: none;
     }
   }
 
+  @media (max-width: 1000px) {
+    #icon {
+      width: @img_size/1.4;
+      left: 3%;
+    }
+
+    .navbar-menu {
+      display: none;
+    }
+
+    .name {
+
+      margin-left: 60px;
+      .header {
+        font-size: 20px;
+      }
+
+      .text4 {
+        font-size: 25px;
+      }
+    }
+  }
+
   .main-footer {
-    width: 100%;
+    width: inherit;
+    height: 30px;
     text-align: center;
     font-size: 15px;
     color: darken(@mainColor, 20%);
