@@ -3,179 +3,198 @@
  * Created by diana on 12.01.16.
  */
 
-var pizza_info = [
+var noodles_info = [
     {
-        id:1,
-        icon:'assets/images/pizza_7.jpg',
-        title: "Імпреза",
-        type: 'М’ясна піца',
+        id: 1,
+        icon: 'assets/images/box_1.png',
+        title: 'Бокс "Чорний Боб"',
+        type: "З м'ясом",
         content: {
-            meat: ['балик', 'салямі'],
-            chicken: ['куриця'],
-            cheese: ['сир моцарелла', 'сир рокфорд'],
-            pineapple: ['ананаси'],
-            additional: ['томатна паста', 'петрушка']
+            meat: ['курка, яловичина'],
+            additional: ['яйце'],
+            vegetables: ['перець болгарський', 'брокколі', 'мікс-овочі'],
+            sauce: ['соус з чорних бобів']
         },
-        small_size:{
-            weight: 370,
+        spicy_icon: 'assets/images/not-spicy.jpg',
+        both_sizes: true,
+        small_size: {
+            weight: 260,
             size: 30,
-            price: 99
+            price: 78
         },
-        big_size:{
-            weight: 660,
+        big_size: {
+            weight: 480,
             size: 40,
-            price: 169
+            price: 127
         },
-        is_new:true,
-        is_popular:true
-
+        is_new: true
     },
+
     {
-        id:2,
-        icon:'assets/images/pizza_2.jpg',
-        title: "BBQ",
-        type: 'М’ясна піца',
+        id: 2,
+        icon: 'assets/images/box_3.png',
+        title: 'Бокс "Мі-Гі"',
+        type: 'З морепродуктами',
         content: {
-            meat: ['мисливські ковбаски', 'ковбаски папероні', 'шинка'],
-            cheese: ['сир домашній'],
-            mushroom: ['шампінйони'],
-            additional: ['петрушка', 'оливки']
+            seafood: ['креветки', 'кальмари'],
+            additional: ['тофу'],
+            vegetables: ['брокколі', 'мікс-овочі'],
+            sauce: ['Малазійський соус']
         },
-        small_size:{
-            weight: 460,
+        spicy_icon: 'assets/images/spicy.jpg',
+        both_sizes: true,
+        small_size: {
+            weight: 240,
             size: 30,
-            price: 139
+            price: 126
         },
-        big_size:{
-            weight: 840,
+        big_size: {
+            weight: 450,
             size: 40,
             price: 199
         },
-        is_popular:true
+        is_popular: true
     },
+
     {
-        id:3,
-        icon:'assets/images/pizza_1.jpg',
-        title: "Міксовий поло",
-        type: 'М’ясна піца',
+        id: 3,
+        icon: 'assets/images/box_5.png',
+        title: 'Бокс "Чілійський"',
+        type: "З м'ясом",
         content: {
-            meat: ['вітчина', 'куриця копчена'],
-            cheese: ['сир моцарелла'],
-            pineapple: ['ананаси'],
-            additional: ['кукурудза', 'петрушка', 'соус томатний']
+            meat: ['курка', 'свинина'],
+            additional: ['тофу'],
+            vegetables: ['брокколі', 'помідори'],
+            sauce: ['солодко-гострий соус']
         },
-        small_size:{
-            weight: 430,
+        spicy_icon: 'assets/images/spicy.jpg',
+        both_sizes: true,
+        small_size: {
+            weight: 270,
             size: 30,
-            price: 115
+            price: 85
         },
-        big_size:{
-            weight: 780,
+        big_size: {
+            weight: 490,
             size: 40,
-            price: 179
+            price: 145
         }
     },
+
     {
-        id:4,
-        icon:'assets/images/pizza_5.jpg',
-        title: "Сициліано",
-        type: 'М’ясна піца',
+        id: 4,
+        icon: 'assets/images/box_6.png',
+        title: 'Бокс "Індонезійський стайл"',
+        type: "З м'ясом",
         content: {
-            meat: ['вітчина', 'салямі'],
-            cheese: ['сир моцарелла'],
-            mushroom: ['шампінйони'],
-            additional: ['перець болгарський',  'соус томатний']
+            meat: ['свинина', 'салямі'],
+            seafood: ['креветки'],
+            vegetables: ['горошок', 'перець болгарський', 'брокколі', 'мікс-овочі'],
+            additional: ['яйце', 'Індонезійська приправа']
         },
-        small_size:{
-            weight: 450,
+        spicy_icon: 'assets/images/spicy.jpg',
+        both_sizes: true,
+        small_size: {
+            weight: 300,
             size: 30,
-            price: 111
+            price: 105
         },
-        big_size:{
-            weight: 790,
+        big_size: {
+            weight: 500,
             size: 40,
-            price: 169
+            price: 164
         }
     },
+
     {
-        id:17,
-        icon:'assets/images/pizza_3.jpg',
-        title: "Маргарита",
-        type: 'Вега піца',
+        id: 5,
+        icon: 'assets/images/box_7.png',
+        title: 'Бокс "Океанські смаколики"',
+        type: 'З морепродуктами',
         content: {
-            cheese: ['сир моцарелла', 'сир домашній'],
-            tomato: ['помідори'],
-            additional: ['базилік', 'оливкова олія', 'соус томатний']
+            seafood: ['креветки', 'кальмари', 'восьминіг'],
+            vegetables: ['горошок', 'перець болгарський', 'брокколі', 'мікс-овочі'],
+            additional: ['яйце', 'Індонезійська приправа']
         },
-        small_size:{
-            weight: 370,
-            size: 30,
-            price: 89
+        spicy_icon: 'assets/images/spicy.jpg',
+        big_size_only: true,
+        big_size: {
+            weight: 480,
+            size: 40,
+            price: 225
         }
     },
+
     {
-        id:43,
-        icon:'assets/images/pizza_6.jpg',
-        title: "Мікс смаків",
-        type: 'М’ясна піца',
+        id: 6,
+        icon: 'assets/images/box_8.png',
+        title: 'Бокс "Солодко-кислий"',
+        type: "З м'ясом",
         content: {
-            meat: ['ковбаски'],
-            cheese: ['сир моцарелла'],
-            mushroom: ['шампінйони'],
-            pineapple: ['ананаси'],
-            additional: ['цибуля кримська', 'огірки квашені', 'соус гірчичний']
+            meat: ['курка', 'яловичина'],
+            vegetables: ['брокколі', 'перець зелений болгарський', 'мікс-овочі'],
+            sauce: ['солодко-кислий соус']
         },
-        small_size:{
-            weight: 470,
+        spicy_icon: 'assets/images/not-spicy.jpg',
+        both_sizes: true,
+        small_size: {
+            weight: 290,
             size: 30,
-            price: 115
+            price: 90
         },
-        big_size:{
-            weight: 780,
+        big_size: {
+            weight: 530,
             size: 40,
-            price: 180
+            price: 135
         }
     },
+
     {
-        id:90,
-        icon:'assets/images/pizza_8.jpg',
-        title: "Дольче Маре",
-        type: 'Морська піца',
+        id: 7,
+        icon: 'assets/images/box_9.png',
+        title: 'Бокс "Тайський карі"',
+        type: "З м'ясом",
         content: {
-            ocean: ['криветки тигрові', 'мідії', 'ікра червона', 'філе червоної риби'],
-            cheese: ['сир моцарелла'],
-            additional: ['оливкова олія', 'вершки']
+            meat: ['яловичина', 'курка'],
+            seafood: ['креветки'],
+            vegetables: ['брокколі', 'мікс-овочі'],
+            sauce: ['автентичний Тайський соус карі']
         },
-        big_size:{
-            weight: 845,
-            size: 40,
-            price: 399
+        spicy_icon: 'assets/images/spicy.jpg',
+        small_size_only: true,
+        small_size: {
+            weight: 320,
+            size: 30,
+            price: 100
         }
     },
+
     {
-        id:6,
-        icon:'assets/images/pizza_4.jpg',
-        title: "Россо Густо",
-        type: 'Морська піца',
+        id: 8,
+        icon: 'assets/images/box_10.png',
+        title: 'Бокс "Вегі"',
+        type: ['Вегі'],
         content: {
-            ocean: ['ікра червона', 'лосось копчений'],
-            cheese: ['сир моцарелла'],
-            additional: ['оливкова олія', 'вершки']
+            vegetables: ['брокколі', 'мікс-овочі', 'помідори', 'гриби'],
+            sauce: ['наш особливий соус'],
+            additional: ['тофу', 'ананаси']
         },
-        small_size:{
-            weight: 400,
+        spicy_icon: 'assets/images/not-spicy.jpg',
+        both_sizes: true,
+        small_size: {
+            weight: 300,
             size: 30,
-            price: 189
+            price: 95
         },
-        big_size:{
-            weight: 700,
+        big_size: {
+            weight: 480,
             size: 40,
-            price: 299
+            price: 140
         }
     }
 ];
 
-module.exports = pizza_info;
+module.exports = noodles_info;
 },{}],2:[function(require,module,exports){
 /**
  * Created by 1 on 03.02.2016.
@@ -197,9 +216,9 @@ exports.set = function (key, value) {
 var ejs = require('ejs');
 
 
-exports.PizzaMenu_OneItem = ejs.compile("<%\n\nfunction getIngredientsArray(pizza) {\n    //Отримує вміст піци\n    var content = pizza.content;\n    var result = [];\n\n    //Object.keys повертає масив ключів в об’єкті JavaScript\n\n    Object.keys(content).forEach(function(key){\n\n        //a.concat(b) створює спільний масив із масивів a та b\n        result = result.concat(content[key]);\n    });\n\n    return result;\n}\n\n   %>\n<div class=\"col-md-6 col-lg-4 pizza-card\">\n    <div class=\"thumbnail\">\n        <img class=\"pizza-icon\" src=\"<%= pizza.icon %>\" alt=\"Pizza\">\n\n        <% if(pizza.is_new) { %>\n        <span class=\"label label-danger\">Нова</span>\n        <% } else if(pizza.is_popular) {%>\n        <span class=\"label label-success\">Популярна</span>\n        <% } %>\n\n        <div class=\"caption\">\n            <span class=\"title\"><%= pizza.title %></span>\n            <div class=\"type\"><%= pizza.type %></div>\n            <div class=\"description\">\n                <%= getIngredientsArray(pizza).join(\", \") %>\n            </div>\n        </div>\n\n        <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->\n        <button class=\"btn btn-primary buy-big\">Купити велику</button>\n    </div>\n</div>");
+exports.NoodlesMenu_OneItem = ejs.compile("<%\nfunction getIngredientsArray(noodles) {\n    //Отримує вміст піци\n    var content = noodles.content;\n    var result = [];\n\n    //Object.keys повертає масив ключів в об’єкті JavaScript\n\n    Object.keys(content).forEach(function (key) {\n\n        //a.concat(b) створює спільний масив із масивів a та b\n        result = result.concat(content[key]);\n    });\n\n    return result;\n}\n%>\n\n<div class=\"col-lg-4 col-md-6 col-xs-12 \">\n    <div class=\"thumbnail noodle-card\">\n        <img class=\"noodles\" src=\"<%= noodles.icon %>\" alt=\"Noodles\">\n\n        <% if(noodles.is_new) { %>\n        <span class=\"label label-info label-new\">Нова</span>\n        <% } else if(noodles.is_popular) { %>\n        <span class=\"label label-info label-new label-popular\">Популярна</span>\n        <% } %>\n\n        <span class=\"caption\">\n\n            <h3><%= noodles.title %></h3>\n            <h5>\n                <small><%= noodles.type %></small>\n            </h5>\n            <p>\n                <%= getIngredientsArray(noodles).join(\", \") %>\n            </p>\n            <img class=\"spicy\" src=\"<%= noodles.spicy_icon %>\">\n\n            <% if(noodles.small_size_only){ %>\n            <span class=\"choose1 choose3\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> 30</div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></div>\n            <div class=\"price\"><%= noodles[size].price %>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary\">Купити</a></span>\n            <% } if(noodles.big_size_only){ %>\n            <span class=\"choose2 choose3\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> 40</div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></div>\n             <div class=\"price\"><%= noodles[size].price %>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info\">Купити</a></span>\n            <% } if(noodles.both_sizes){ %>\n            <span class=\"choose1 choose3\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> 30</div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></div>\n            <div class=\"price\"><%= noodles[size].price %>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary\">Купити</a></span>\n            <span class=\"choose2 choose3\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> 40</div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></div>\n             <div class=\"price\"><%= noodles[size].price %>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info\">Купити</a></span>\n            <% } %>\n\n        </span>\n    </div>\n</div>");
 
-exports.PizzaCart_OneItem = ejs.compile("<div>\n    <%= pizza.title %> (<%= size %>)\n    <div>Ціна: <%= pizza[size].price %> грн.</div>\n    <div>\n        <button class=\"btn btn-danger minus\">-</button>\n        <span class=\"label label-default\"><%= quantity %></span>\n        <button class=\"btn btn-success plus\">+</button>\n    </div>\n</div>");
+exports.NoodlesCart_OneItem = ejs.compile("<div class=\"ordered-item\">\n    <div class=\"noodles-header\"><%= noodles.title %> (<%= size %>)</div>\n\n    <div class=\"info-pan\">\n        <span class=\"size\"><img src=\"assets/images/size-icon.svg\"> 30</span>\n        <span class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></span>\n    </div>\n\n    <span class=\"btn-pan\">\n                      <span class=\"price\">Ціна: <%= noodles[size].price %> грн.</span>\n                      <button type=\"button\" class=\"btn btn-danger minus\"><span\n                                  class=\"glyphicon glyphicon-minus\"></span>\n                      </button> <span class=\"price\"><%= quantity %></span>\n                      <button type=\"button\" class=\"btn btn-success plus\"><span\n                                  class=\"glyphicon glyphicon-plus\"></span>\n                      </button>\n                      <button type=\"button\" class=\"btn btn-default cross\"><span\n                                  class=\"glyphicon glyphicon-remove\"></span>\n                      </button>\n                  </span>\n</div>");
 
 },{"ejs":8}],4:[function(require,module,exports){
 /**
@@ -208,16 +227,16 @@ exports.PizzaCart_OneItem = ejs.compile("<div>\n    <%= pizza.title %> (<%= size
 /*НЕ ПИШЕМО КОД.*/
 $(function () {
     //This code will execute when the page is ready
-    var PizzaMenu = require('./pizza/PizzaMenu');
-    var PizzaCart = require('./pizza/PizzaCart');
+    var PizzaMenu = require('./noodles/NoodlesMenu');
+    var PizzaCart = require('./noodles/NoodlesCart');
 
-    var Pizza_List = require('./Pizza_List');
+    var Pizza_List = require('./Noodles_List');
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
 
 });
-},{"./Pizza_List":1,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
+},{"./Noodles_List":1,"./noodles/NoodlesCart":5,"./noodles/NoodlesMenu":6}],5:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -226,7 +245,7 @@ var Templates = require('../Templates');
 var Storage = require('../Storage');
 
 //Перелік розмірів піци
-var PizzaSize = {
+var NoodlesSize = {
     Big: "big_size",
     Small: "small_size"
 };
@@ -237,12 +256,12 @@ var Cart = [];
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
 
-function addToCart(pizza, size) {
+function addToCart(noodles, size) {
     //Додавання однієї піци в кошик покупок
 
     //Приклад реалізації, можна робити будь-яким іншим способом
     Cart.push({
-        pizza: pizza,
+        noodles: noodles,
         size: size,
         quantity: 1
     });
@@ -262,17 +281,16 @@ function removeFromCart(cart_item) {
 function initialiseCart() {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
-    //TODO: ...
 
-    var saved_pizza = Storage.get("cart");
-    if (saved_pizza) {
-        Cart = saved_pizza;
+    var saved_noodles = Storage.get("cart");
+    if (saved_noodles) {
+        Cart = saved_noodles;
     }
 
     updateCart();
 }
 
-function getPizzaInCart() {
+function getNoodlesInCart() {
     //Повертає піци які зберігаються в кошику
     return Cart;
 }
@@ -285,8 +303,8 @@ function updateCart() {
     $cart.html("");
 
     //Онволення однієї піци
-    function showOnePizzaInCart(cart_item) {
-        var html_code = Templates.PizzaCart_OneItem(cart_item);
+    function showOneNoodlesInCart(cart_item) {
+        var html_code = Templates.NoodlesCart_OneItem(cart_item);
 
         var $node = $(html_code);
 
@@ -298,77 +316,87 @@ function updateCart() {
             updateCart();
         });
 
+        $node.find(".minus").click(function () {
+            //Збільшуємо кількість замовлених піц
+            if(cart_item.quantity>1){
+            cart_item.quantity -= 1;
+            }
+
+            //Оновлюємо відображення
+            updateCart();
+        });
+
         $cart.append($node);
     }
 
-    Cart.forEach(showOnePizzaInCart);
+    Cart.forEach(showOneNoodlesInCart);
     Storage.set("cart", Cart);//
 }
 
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
-exports.getPizzaInCart = getPizzaInCart;
+exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;
 
-exports.PizzaSize = PizzaSize;
+exports.NoodlesSize = NoodlesSize;
 },{"../Storage":2,"../Templates":3}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
-var PizzaCart = require('./PizzaCart');
-var Pizza_List = require('../Pizza_List');
+var NoodlesCart = require('./NoodlesCart');
+var Noodles_List = require('../Noodles_List');
 
 //HTML едемент куди будуть додаватися піци
-var $pizza_list = $("#pizza_list");
+var $noodles_list = $("#noodles_list");
 
-function showPizzaList(list) {
+function showNoodlesList(list) {
     //Очищаємо старі піци в кошику
-    $pizza_list.html("");
+    $noodles_list.html("");
 
     //Онволення однієї піци
-    function showOnePizza(pizza) {
-        var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
+    function showOneNoodles(noodles) {
+        var html_code = Templates.NoodlesMenu_OneItem({noodles: noodles});
 
         var $node = $(html_code);
 
         $node.find(".buy-big").click(function(){
-            PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
+            NoodlesCart.addToCart(noodles, NoodlesCart.NoodlesSize.Big);
         });
         $node.find(".buy-small").click(function(){
-            PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Small);
+            NoodlesCart.addToCart(noodles, NoodlesCart.NoodlesSize.Small);
         });
 
-        $pizza_list.append($node);
+        $noodles_list.append($node);
     }
 
-    list.forEach(showOnePizza);
+    list.forEach(showOneNoodles);
 }
 
-function filterPizza(filter) {
+function filterNoodles(filter) {
     //Масив куди потраплять піци які треба показати
-    var pizza_shown = [];
+    var noodles_shown = [];
 
-    Pizza_List.forEach(function(pizza){
-        //Якщо піка відповідає фільтру
-        //pizza_shown.push(pizza);
+    Noodles_List.forEach(function(noodles){
+        //Якщо піца відповідає фільтру
+        //noodles_shown.push(noodles);
 
         //TODO: зробити фільтри
     });
 
     //Показати відфільтровані піци
-    showPizzaList(pizza_shown);
+    showNoodlesList(noodles_shown);
 }
 
 function initialiseMenu() {
     //Показуємо усі піци
-    showPizzaList(Pizza_List)
+    showNoodlesList(Noodles_List)
 }
 
-exports.filterPizza = filterPizza;
+exports.filterNoodles = filterNoodles;
 exports.initialiseMenu = initialiseMenu;
-},{"../Pizza_List":1,"../Templates":3,"./PizzaCart":5}],7:[function(require,module,exports){
+},{"../Noodles_List":1,"../Templates":3,"./NoodlesCart":5}],7:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {

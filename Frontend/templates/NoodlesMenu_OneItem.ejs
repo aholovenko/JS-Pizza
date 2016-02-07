@@ -1,0 +1,75 @@
+<%
+function getIngredientsArray(noodles) {
+    //Отримує вміст піци
+    var content = noodles.content;
+    var result = [];
+
+    //Object.keys повертає масив ключів в об’єкті JavaScript
+
+    Object.keys(content).forEach(function (key) {
+
+        //a.concat(b) створює спільний масив із масивів a та b
+        result = result.concat(content[key]);
+    });
+
+    return result;
+}
+%>
+
+<div class="col-lg-4 col-md-6 col-xs-12 ">
+    <div class="thumbnail noodle-card">
+        <img class="noodles" src="<%= noodles.icon %>" alt="Noodles">
+
+        <% if(noodles.is_new) { %>
+        <span class="label label-info label-new">Нова</span>
+        <% } else if(noodles.is_popular) { %>
+        <span class="label label-info label-new label-popular">Популярна</span>
+        <% } %>
+
+        <span class="caption">
+
+            <h3><%= noodles.title %></h3>
+            <h5>
+                <small><%= noodles.type %></small>
+            </h5>
+            <p>
+                <%= getIngredientsArray(noodles).join(", ") %>
+            </p>
+            <img class="spicy" src="<%= noodles.spicy_icon %>">
+
+            <% if(noodles.small_size_only){ %>
+            <span class="choose1 choose3">
+            <div class="size"><img src="assets/images/size-icon.svg"> 30</div>
+            <div class="weight"><img src="assets/images/weight.svg"> <%= noodles[size].weight %></div>
+            <div class="price"><%= noodles[size].price %>
+                <div class="uah">грн.</div>
+            </div>
+                <a href="#" class="btn btn-primary">Купити</a></span>
+            <% } if(noodles.big_size_only){ %>
+            <span class="choose2 choose3">
+             <div class="size"><img src="assets/images/size-icon.svg"> 40</div>
+             <div class="weight"><img src="assets/images/weight.svg"> <%= noodles[size].weight %></div>
+             <div class="price"><%= noodles[size].price %>
+                 <div class="uah">грн.</div>
+             </div>
+             <a href="#" class="btn btn-info">Купити</a></span>
+            <% } if(noodles.both_sizes){ %>
+            <span class="choose1 choose3">
+            <div class="size"><img src="assets/images/size-icon.svg"> 30</div>
+            <div class="weight"><img src="assets/images/weight.svg"> <%= noodles[size].weight %></div>
+            <div class="price"><%= noodles[size].price %>
+                <div class="uah">грн.</div>
+            </div>
+                <a href="#" class="btn btn-primary">Купити</a></span>
+            <span class="choose2 choose3">
+             <div class="size"><img src="assets/images/size-icon.svg"> 40</div>
+             <div class="weight"><img src="assets/images/weight.svg"> <%= noodles[size].weight %></div>
+             <div class="price"><%= noodles[size].price %>
+                 <div class="uah">грн.</div>
+             </div>
+             <a href="#" class="btn btn-info">Купити</a></span>
+            <% } %>
+
+        </span>
+    </div>
+</div>

@@ -6,7 +6,7 @@ var Templates = require('../Templates');
 var Storage = require('../Storage');
 
 //Перелік розмірів піци
-var PizzaSize = {
+var NoodlesSize = {
     Big: "big_size",
     Small: "small_size"
 };
@@ -17,12 +17,12 @@ var Cart = [];
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
 
-function addToCart(pizza, size) {
+function addToCart(noodles, size) {
     //Додавання однієї піци в кошик покупок
 
     //Приклад реалізації, можна робити будь-яким іншим способом
     Cart.push({
-        pizza: pizza,
+        noodles: noodles,
         size: size,
         quantity: 1
     });
@@ -42,17 +42,16 @@ function removeFromCart(cart_item) {
 function initialiseCart() {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
-    //TODO: ...
 
-    var saved_pizza = Storage.get("cart");
-    if (saved_pizza) {
-        Cart = saved_pizza;
+    var saved_noodles = Storage.get("cart");
+    if (saved_noodles) {
+        Cart = saved_noodles;
     }
 
     updateCart();
 }
 
-function getPizzaInCart() {
+function getNoodlesInCart() {
     //Повертає піци які зберігаються в кошику
     return Cart;
 }
@@ -65,8 +64,8 @@ function updateCart() {
     $cart.html("");
 
     //Онволення однієї піци
-    function showOnePizzaInCart(cart_item) {
-        var html_code = Templates.PizzaCart_OneItem(cart_item);
+    function showOneNoodlesInCart(cart_item) {
+        var html_code = Templates.NoodlesCart_OneItem(cart_item);
 
         var $node = $(html_code);
 
@@ -78,17 +77,27 @@ function updateCart() {
             updateCart();
         });
 
+        $node.find(".minus").click(function () {
+            //Збільшуємо кількість замовлених піц
+            if(cart_item.quantity>1){
+            cart_item.quantity -= 1;
+            }
+
+            //Оновлюємо відображення
+            updateCart();
+        });
+
         $cart.append($node);
     }
 
-    Cart.forEach(showOnePizzaInCart);
+    Cart.forEach(showOneNoodlesInCart);
     Storage.set("cart", Cart);//
 }
 
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
-exports.getPizzaInCart = getPizzaInCart;
+exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;
 
-exports.PizzaSize = PizzaSize;
+exports.NoodlesSize = NoodlesSize;
