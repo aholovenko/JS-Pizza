@@ -1,8 +1,10 @@
-<div class="ordered-item">
-    <div class="noodles-header"><%= noodles.title %> (<%= size %>)</div>
+
+
+<div class="ordered-card">
+    <div class="noodles-header"><%= noodles.title %></div>
 
     <div class="info-pan">
-        <span class="size"><img src="assets/images/size-icon.svg"> 30</span>
+        <span class="size"><img src="assets/images/size-icon.svg"> <%= noodles[size].size %></span>
         <span class="weight"><img src="assets/images/weight.svg"> <%= noodles[size].weight %></span>
     </div>
 

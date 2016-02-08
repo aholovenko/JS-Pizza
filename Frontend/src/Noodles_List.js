@@ -9,7 +9,7 @@ var noodles_info = [
         title: 'Бокс "Чорний Боб"',
         type: "З м'ясом",
         content: {
-            meat: ['курка, яловичина'],
+            meat: ['Яловичина','курка'],
             additional: ['яйце'],
             vegetables: ['перець болгарський', 'брокколі', 'мікс-овочі'],
             sauce: ['соус з чорних бобів']
@@ -18,12 +18,12 @@ var noodles_info = [
         both_sizes: true,
         small_size: {
             weight: 260,
-            size: 30,
+            size: 100,
             price: 78
         },
         big_size: {
             weight: 480,
-            size: 40,
+            size: 180,
             price: 127
         },
         is_new: true
@@ -35,21 +35,21 @@ var noodles_info = [
         title: 'Бокс "Мі-Гі"',
         type: 'З морепродуктами',
         content: {
-            seafood: ['креветки', 'кальмари'],
+            seafood: ['Креветки', 'кальмари', 'восьминіг'],
             additional: ['тофу'],
-            vegetables: ['брокколі', 'мікс-овочі'],
+            vegetables: ['брокколі', 'мікс-овочі','горошок'],
             sauce: ['Малазійський соус']
         },
         spicy_icon: 'assets/images/spicy.jpg',
         both_sizes: true,
         small_size: {
-            weight: 240,
-            size: 30,
+            weight: 250,
+            size: 100,
             price: 126
         },
         big_size: {
             weight: 450,
-            size: 40,
+            size: 180,
             price: 199
         },
         is_popular: true
@@ -61,21 +61,21 @@ var noodles_info = [
         title: 'Бокс "Чілійський"',
         type: "З м'ясом",
         content: {
-            meat: ['курка', 'свинина'],
+            meat: ['Курка','яловичина'],
             additional: ['тофу'],
             vegetables: ['брокколі', 'помідори'],
-            sauce: ['солодко-гострий соус']
+            sauce: ['особливий солодко-гострий соус']
         },
         spicy_icon: 'assets/images/spicy.jpg',
         both_sizes: true,
         small_size: {
             weight: 270,
-            size: 30,
+            size: 100,
             price: 85
         },
         big_size: {
             weight: 490,
-            size: 40,
+            size: 180,
             price: 145
         }
     },
@@ -86,21 +86,20 @@ var noodles_info = [
         title: 'Бокс "Індонезійський стайл"',
         type: "З м'ясом",
         content: {
-            meat: ['свинина', 'салямі'],
-            seafood: ['креветки'],
+            meat: ['Свинина'],
             vegetables: ['горошок', 'перець болгарський', 'брокколі', 'мікс-овочі'],
             additional: ['яйце', 'Індонезійська приправа']
         },
         spicy_icon: 'assets/images/spicy.jpg',
         both_sizes: true,
         small_size: {
-            weight: 300,
-            size: 30,
+            weight: 310,
+            size: 100,
             price: 105
         },
         big_size: {
             weight: 500,
-            size: 40,
+            size: 180,
             price: 164
         }
     },
@@ -111,7 +110,7 @@ var noodles_info = [
         title: 'Бокс "Океанські смаколики"',
         type: 'З морепродуктами',
         content: {
-            seafood: ['креветки', 'кальмари', 'восьминіг'],
+            seafood: ['Креветки', 'кальмари'],
             vegetables: ['горошок', 'перець болгарський', 'брокколі', 'мікс-овочі'],
             additional: ['яйце', 'Індонезійська приправа']
         },
@@ -119,7 +118,7 @@ var noodles_info = [
         big_size_only: true,
         big_size: {
             weight: 480,
-            size: 40,
+            size: 180,
             price: 225
         }
     },
@@ -130,7 +129,7 @@ var noodles_info = [
         title: 'Бокс "Солодко-кислий"',
         type: "З м'ясом",
         content: {
-            meat: ['курка', 'яловичина'],
+            meat: ['Курка', 'яловичина'],
             vegetables: ['брокколі', 'перець зелений болгарський', 'мікс-овочі'],
             sauce: ['солодко-кислий соус']
         },
@@ -138,12 +137,12 @@ var noodles_info = [
         both_sizes: true,
         small_size: {
             weight: 290,
-            size: 30,
+            size: 100,
             price: 90
         },
         big_size: {
-            weight: 530,
-            size: 40,
+            weight: 535,
+            size: 180,
             price: 135
         }
     },
@@ -154,7 +153,7 @@ var noodles_info = [
         title: 'Бокс "Тайський карі"',
         type: "З м'ясом",
         content: {
-            meat: ['яловичина', 'курка'],
+            meat: ['Яловичина', 'курка'],
             seafood: ['креветки'],
             vegetables: ['брокколі', 'мікс-овочі'],
             sauce: ['автентичний Тайський соус карі']
@@ -163,7 +162,7 @@ var noodles_info = [
         small_size_only: true,
         small_size: {
             weight: 320,
-            size: 30,
+            size: 100,
             price: 100
         }
     },
@@ -174,21 +173,21 @@ var noodles_info = [
         title: 'Бокс "Вегі"',
         type: ['Вегі'],
         content: {
-            vegetables: ['брокколі', 'мікс-овочі', 'помідори', 'гриби'],
-            sauce: ['наш особливий соус'],
-            additional: ['тофу', 'ананаси']
+            vegetables: ['Брокколі', 'мікс-овочі', 'помідори', 'гриби'],
+            additional: ['тофу', 'ананаси'],
+            sauce: ['наш особливий імбирний соус']
         },
         spicy_icon: 'assets/images/not-spicy.jpg',
         both_sizes: true,
         small_size: {
-            weight: 300,
-            size: 30,
+            weight: 310,
+            size: 100,
             price: 95
         },
         big_size: {
             weight: 480,
-            size: 40,
-            price: 140
+            size: 180,
+            price: 120
         }
     }
 ];

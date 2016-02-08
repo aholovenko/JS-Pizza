@@ -13,12 +13,25 @@ var NoodlesSize = {
 
 //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
+var totalPrice;
 
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
 
+function totalReset(){
+    Cart=[];
+}
+
 function addToCart(noodles, size) {
     //Додавання однієї піци в кошик покупок
+
+    for (var i = 0; i < Cart.length; i++) {
+        if ((Cart[i].noodles == noodles) && (Cart[i]).size == size) {
+            Cart[i].quantity += 1;
+            updateCart();
+            return;
+        }
+    }
 
     //Приклад реалізації, можна робити будь-яким іншим способом
     Cart.push({
@@ -33,7 +46,8 @@ function addToCart(noodles, size) {
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
-    //TODO: треба зробити
+
+    Cart.splice(Cart.indexOf(cart_item), 1);
 
     //Після видалення оновити відображення
     updateCart();
@@ -79,11 +93,19 @@ function updateCart() {
 
         $node.find(".minus").click(function () {
             //Збільшуємо кількість замовлених піц
-            if(cart_item.quantity>1){
-            cart_item.quantity -= 1;
+            if (cart_item.quantity > 1) {
+                cart_item.quantity -= 1;
+            } else {
+                removeFromCart(cart_item);
             }
 
             //Оновлюємо відображення
+            updateCart();
+        });
+
+        $node.find(".cross").click(function () {
+            removeFromCart(cart_item);
+
             updateCart();
         });
 
@@ -96,6 +118,9 @@ function updateCart() {
 
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
+exports.totalReset=totalReset;
+
+exports.updateCart=updateCart;
 
 exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;

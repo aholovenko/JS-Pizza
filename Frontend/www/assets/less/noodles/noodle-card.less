@@ -2,21 +2,21 @@
   border: 2px solid lighten(@mainColor, 30%);
   box-shadow: 0px 0px 15px #dfdfdf;
   padding: 2%;
-  height: 465px;
+  height: 460px;
   margin: 2%;
-
 
   &:hover {
     box-shadow: 0px 0px 15px @mainColor;
   }
 
   .noodles {
-    width: 180px;
+    width: 150px;
+
   }
 
-  .label-new{
-    display:inline;
-    padding:3%;
+  .label-new {
+    display: inline;
+    padding: 3%;
     font-size: 90%;
     vertical-align: baseline;
     -webkit-margin-before: -3px;
@@ -27,7 +27,7 @@
     background-color: @auxColor;
   }
 
-  .label-popular{
+  .label-popular {
     background-color: #ffcb00;
   }
 
@@ -46,7 +46,8 @@
 
   p {
     font-family: "Segoe UI Symbol";
-    margin-bottom: 10px;
+    margin:1%;
+    margin-bottom: auto;
     text-align: center;
   }
 
@@ -60,6 +61,9 @@
     margin: auto;
     height: 15px;
   }
+  .pannel {
+    display: block;
+  }
 
   .choose1 {
     text-align: center;
@@ -67,7 +71,6 @@
     float: left;
     font-size: 12px;
     font-family: "Segoe UI Symbol";
-
   }
 
   .choose2 {
@@ -78,7 +81,7 @@
     font-family: "Segoe UI Symbol";
   }
 
-  .choose3{
+  .choose3 {
     float: none;
     display: block;
     margin: auto;
@@ -108,19 +111,21 @@
 
   }
 
-  @media(max-width: 1260px)and(min-width: 1000px){
-    .price{
+  @media (max-width: 1260px)and(min-width: 1000px) {
+    .price {
       font-size: 15px;
     }
-    .uah{
+
+    .uah {
       font-size: 10px;
     }
-    .btn{
-      width:70px;
+
+    .btn {
+      width: 70px;
     }
 
-    h3{
-      font-size:16px;
+    h3 {
+      font-size: 16px;
     }
 
     .noodles {
@@ -129,8 +134,14 @@
   }
 }
 
-@media(max-width: 1260px)and(min-width: 1000px){
+@media (max-width: 1260px)and(min-width: 800px) {
   .noodle-card {
-    height:410px;
+    height: 435px;
+  }
+}
+
+@media (max-width: 1200px)and(min-width: 1000px) {
+  .noodle-card {
+    height: 410px;
   }
 }
