@@ -171,7 +171,7 @@ var noodles_info = [
         id: 8,
         icon: 'assets/images/box_10.png',
         title: 'Бокс "Вегі"',
-        type: ['Вегі'],
+        type: ['Вега'],
         content: {
             vegetables: ['Брокколі', 'мікс-овочі', 'помідори', 'гриби'],
             additional: ['тофу', 'ананаси'],

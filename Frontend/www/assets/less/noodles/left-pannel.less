@@ -6,6 +6,16 @@
     width: @img_size;
     margin: 10px;
     margin-top: 5px;
+    cursor:pointer;
+  }
+
+  #discount{
+    position: fixed !important;
+    bottom:-5%!important;
+    left: 2%;
+    width: @img_size*0.8;
+    margin: 10px;
+    margin-top: 5px;
   }
 
   .navbar-menu {
@@ -88,13 +98,17 @@
   }
 
   .main-footer {
-    width: inherit;
-    height: 30px;
-    text-align: center;
-    font-size: 15px;
-    color: darken(@mainColor, 20%);
-    font-family: "Goudy Old Style";
+    width: 100%;
     margin-bottom: 5px;
+    border-top:1px solid darken(@mainColor, 40%);
+
+    .text-box{
+      padding:2%;
+      font-size: 15px;
+      text-align: center;
+      color: darken(@mainColor, 20%);
+      font-family: "Goudy Old Style";
+    }
   }
 
 }

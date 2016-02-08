@@ -13,7 +13,6 @@ var NoodlesSize = {
 
 //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
-var totalPrice;
 
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
@@ -43,6 +42,12 @@ function addToCart(noodles, size) {
     //Оновити вміст кошика на сторінці
     updateCart();
 }
+//var totalSum=0;
+
+//function priceCalc(add){
+//    totalSum+=add;
+//    return totalSum.parseInt();
+//}
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
@@ -86,7 +91,7 @@ function updateCart() {
         $node.find(".plus").click(function () {
             //Збільшуємо кількість замовлених піц
             cart_item.quantity += 1;
-
+            //priceCalc(noodles[size].price);
             //Оновлюємо відображення
             updateCart();
         });
@@ -95,8 +100,10 @@ function updateCart() {
             //Збільшуємо кількість замовлених піц
             if (cart_item.quantity > 1) {
                 cart_item.quantity -= 1;
+                //priceCalc(-noodles[size].price);
             } else {
                 removeFromCart(cart_item);
+                //priceCalc(-noodles[size].price);
             }
 
             //Оновлюємо відображення
@@ -124,5 +131,7 @@ exports.updateCart=updateCart;
 
 exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;
+
+//exports.priceCalc=priceCalc;
 
 exports.NoodlesSize = NoodlesSize;

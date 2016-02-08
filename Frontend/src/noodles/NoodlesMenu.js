@@ -18,10 +18,10 @@ function showNoodlesList(list) {
 
         var $node = $(html_code);
 
-        $node.find(".buy-big").click(function(){
+        $node.find(".buy-big").click(function () {
             NoodlesCart.addToCart(noodles, NoodlesCart.NoodlesSize.Big);
         });
-        $node.find(".buy-small").click(function(){
+        $node.find(".buy-small").click(function () {
             NoodlesCart.addToCart(noodles, NoodlesCart.NoodlesSize.Small);
         });
 
@@ -35,11 +35,14 @@ function filterNoodles(filter) {
     //Масив куди потраплять піци які треба показати
     var noodles_shown = [];
 
-    Noodles_List.forEach(function(noodles){
-        //Якщо піца відповідає фільтру
-        //noodles_shown.push(noodles);
+    Noodles_List.forEach(function (noodles) {
 
-        //TODO: зробити фільтри
+        //Якщо піца відповідає фільтру
+
+        if (noodles.type == filter) {
+            noodles_shown.push(noodles);
+        }
+
     });
 
     //Показати відфільтровані піци
@@ -50,6 +53,13 @@ function initialiseMenu() {
     //Показуємо усі піци
     showNoodlesList(Noodles_List)
 }
+var NoodlesFilter = {
+    Meat: "З м'ясом",
+    Seafood: "З морепродуктами",
+    Vega: "Вега"
+};
 
 exports.filterNoodles = filterNoodles;
 exports.initialiseMenu = initialiseMenu;
+
+exports.NoodlesFilter = NoodlesFilter;

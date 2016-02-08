@@ -172,7 +172,7 @@ var noodles_info = [
         id: 8,
         icon: 'assets/images/box_10.png',
         title: 'Бокс "Вегі"',
-        type: ['Вегі'],
+        type: ['Вега'],
         content: {
             vegetables: ['Брокколі', 'мікс-овочі', 'помідори', 'гриби'],
             additional: ['тофу', 'ананаси'],
@@ -226,18 +226,48 @@ exports.NoodlesCart_OneItem = ejs.compile("\n\n<div class=\"ordered-card\">\n   
 
 $(function () {
     //This code will execute when the page is ready
-    var PizzaMenu = require('./noodles/NoodlesMenu');
-    var PizzaCart = require('./noodles/NoodlesCart');
+    var NoodlesMenu = require('./noodles/NoodlesMenu');
+    var NoodlesCart = require('./noodles/NoodlesCart');
 
-    var Pizza_List = require('./Noodles_List');
+    var Noodles_List = require('./Noodles_List');
 
-    PizzaCart.initialiseCart();
-    PizzaMenu.initialiseMenu();
+    NoodlesCart.initialiseCart();
+    NoodlesMenu.initialiseMenu();
+
+    $('#all').click(function(){
+        NoodlesMenu.initialiseMenu();
+    });
+
+    $('#home').click(function(){
+        NoodlesMenu.initialiseMenu();
+    });
+
+    $('#icon').click(function(){
+        NoodlesMenu.initialiseMenu();
+    });
+
+    $('#meat').click(function(){
+        var filter	=	NoodlesMenu.NoodlesFilter.Meat;
+        NoodlesMenu.filterNoodles(filter);
+    });
+
+    $('#seafood').click(function(){
+        var filter	=	NoodlesMenu.NoodlesFilter.Seafood;
+        NoodlesMenu.filterNoodles(filter);
+    });
+
+    $('#vega').click(function(){
+        var filter	=	NoodlesMenu.NoodlesFilter.Vega;
+        NoodlesMenu.filterNoodles(filter);
+    });
 
     $(".reset").click(function(){
-        PizzaCart.totalReset();
-        PizzaCart.updateCart();
+        NoodlesCart.totalReset();
+        NoodlesCart.updateCart();
     });
+
+  //  $(".total-price").text(PizzaCart.priceCalc()+" грн.");
+
 });
 },{"./Noodles_List":1,"./noodles/NoodlesCart":5,"./noodles/NoodlesMenu":6}],5:[function(require,module,exports){
 /**
@@ -255,7 +285,6 @@ var NoodlesSize = {
 
 //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
-var totalPrice;
 
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
@@ -285,6 +314,12 @@ function addToCart(noodles, size) {
     //Оновити вміст кошика на сторінці
     updateCart();
 }
+//var totalSum=0;
+
+//function priceCalc(add){
+//    totalSum+=add;
+//    return totalSum.parseInt();
+//}
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
@@ -328,7 +363,7 @@ function updateCart() {
         $node.find(".plus").click(function () {
             //Збільшуємо кількість замовлених піц
             cart_item.quantity += 1;
-
+            //priceCalc(noodles[size].price);
             //Оновлюємо відображення
             updateCart();
         });
@@ -337,8 +372,10 @@ function updateCart() {
             //Збільшуємо кількість замовлених піц
             if (cart_item.quantity > 1) {
                 cart_item.quantity -= 1;
+                //priceCalc(-noodles[size].price);
             } else {
                 removeFromCart(cart_item);
+                //priceCalc(-noodles[size].price);
             }
 
             //Оновлюємо відображення
@@ -367,6 +404,8 @@ exports.updateCart=updateCart;
 exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;
 
+//exports.priceCalc=priceCalc;
+
 exports.NoodlesSize = NoodlesSize;
 },{"../Storage":2,"../Templates":3}],6:[function(require,module,exports){
 /**
@@ -389,10 +428,10 @@ function showNoodlesList(list) {
 
         var $node = $(html_code);
 
-        $node.find(".buy-big").click(function(){
+        $node.find(".buy-big").click(function () {
             NoodlesCart.addToCart(noodles, NoodlesCart.NoodlesSize.Big);
         });
-        $node.find(".buy-small").click(function(){
+        $node.find(".buy-small").click(function () {
             NoodlesCart.addToCart(noodles, NoodlesCart.NoodlesSize.Small);
         });
 
@@ -406,11 +445,14 @@ function filterNoodles(filter) {
     //Масив куди потраплять піци які треба показати
     var noodles_shown = [];
 
-    Noodles_List.forEach(function(noodles){
-        //Якщо піца відповідає фільтру
-        //noodles_shown.push(noodles);
+    Noodles_List.forEach(function (noodles) {
 
-        //TODO: зробити фільтри
+        //Якщо піца відповідає фільтру
+
+        if (noodles.type == filter) {
+            noodles_shown.push(noodles);
+        }
+
     });
 
     //Показати відфільтровані піци
@@ -421,9 +463,16 @@ function initialiseMenu() {
     //Показуємо усі піци
     showNoodlesList(Noodles_List)
 }
+var NoodlesFilter = {
+    Meat: "З м'ясом",
+    Seafood: "З морепродуктами",
+    Vega: "Вега"
+};
 
 exports.filterNoodles = filterNoodles;
 exports.initialiseMenu = initialiseMenu;
+
+exports.NoodlesFilter = NoodlesFilter;
 },{"../Noodles_List":1,"../Templates":3,"./NoodlesCart":5}],7:[function(require,module,exports){
 (function () {
 	// Basil

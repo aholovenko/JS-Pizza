@@ -4,16 +4,46 @@
 
 $(function () {
     //This code will execute when the page is ready
-    var PizzaMenu = require('./noodles/NoodlesMenu');
-    var PizzaCart = require('./noodles/NoodlesCart');
+    var NoodlesMenu = require('./noodles/NoodlesMenu');
+    var NoodlesCart = require('./noodles/NoodlesCart');
 
-    var Pizza_List = require('./Noodles_List');
+    var Noodles_List = require('./Noodles_List');
 
-    PizzaCart.initialiseCart();
-    PizzaMenu.initialiseMenu();
+    NoodlesCart.initialiseCart();
+    NoodlesMenu.initialiseMenu();
+
+    $('#all').click(function(){
+        NoodlesMenu.initialiseMenu();
+    });
+
+    $('#home').click(function(){
+        NoodlesMenu.initialiseMenu();
+    });
+
+    $('#icon').click(function(){
+        NoodlesMenu.initialiseMenu();
+    });
+
+    $('#meat').click(function(){
+        var filter	=	NoodlesMenu.NoodlesFilter.Meat;
+        NoodlesMenu.filterNoodles(filter);
+    });
+
+    $('#seafood').click(function(){
+        var filter	=	NoodlesMenu.NoodlesFilter.Seafood;
+        NoodlesMenu.filterNoodles(filter);
+    });
+
+    $('#vega').click(function(){
+        var filter	=	NoodlesMenu.NoodlesFilter.Vega;
+        NoodlesMenu.filterNoodles(filter);
+    });
 
     $(".reset").click(function(){
-        PizzaCart.totalReset();
-        PizzaCart.updateCart();
+        NoodlesCart.totalReset();
+        NoodlesCart.updateCart();
     });
+
+  //  $(".total-price").text(PizzaCart.priceCalc()+" грн.");
+
 });
