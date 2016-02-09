@@ -58,7 +58,7 @@
   }
 
   #motivation {
-    margin-top:15%;
+    margin-top: 15%;
     text-align: center;
     padding: 5%;
     font-size: 20px;
@@ -245,8 +245,17 @@
 
       background-color: @mainColor;
 
+      animation: pulsate 1.2s linear infinite;
+
       &:hover {
         background-color: lighten(@mainColor, 7%);
+      }
+    }
+
+    @keyframes pulsate {
+      50% {
+        color: #fff;
+        text-shadow: 0 -1px rgba(0, 0, 0, .3), 0 0 5px #ffd, 0 0 8px #fff;
       }
     }
   }

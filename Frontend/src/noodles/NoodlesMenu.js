@@ -8,7 +8,7 @@ var Noodles_List = require('../Noodles_List');
 //HTML едемент куди будуть додаватися піци
 var $noodles_list = $("#noodles_list");
 
-var items=0;
+var items = 0;
 
 function showNoodlesList(list) {
     //Очищаємо старі піци в кошику
@@ -44,24 +44,24 @@ function filterNoodles(filter) {
         //Якщо піца відповідає фільтру
         if (noodles.type == filter) {
             noodles_shown.push(noodles);
-            items+=1;
+            items += 1;
         }
     });
 
     //Показати відфільтровані піци
     showNoodlesList(noodles_shown);
-    items=0;
+    items = 0;
 }
 
 function initialiseMenu() {
     //Показуємо усі піци
-    items=8;
+    items = 8;
     showNoodlesList(Noodles_List)
-    items=0;
+    items = 0;
 }
 
 var NoodlesFilter = {
-    Meat: "З м'ясом",
+    Meat: "М'ясна",
     Seafood: "З морепродуктами",
     Vega: "Вега"
 };

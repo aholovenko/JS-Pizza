@@ -7,9 +7,9 @@ var noodles_info = [
         id: 1,
         icon: 'assets/images/box_1.png',
         title: 'Бокс "Чорний Боб"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
-            meat: ['Яловичина','курка'],
+            meat: ['Яловичина', 'курка'],
             additional: ['яйце'],
             vegetables: ['перець болгарський', 'брокколі', 'мікс-овочі'],
             sauce: ['соус з чорних бобів']
@@ -37,7 +37,7 @@ var noodles_info = [
         content: {
             seafood: ['Креветки', 'кальмари', 'восьминіг'],
             additional: ['тофу'],
-            vegetables: ['брокколі', 'мікс-овочі','горошок'],
+            vegetables: ['брокколі', 'мікс-овочі', 'горошок'],
             sauce: ['Малазійський соус']
         },
         spicy_icon: 'assets/images/spicy.jpg',
@@ -59,9 +59,9 @@ var noodles_info = [
         id: 3,
         icon: 'assets/images/box_5.png',
         title: 'Бокс "Чілійський"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
-            meat: ['Курка','яловичина'],
+            meat: ['Курка', 'яловичина'],
             additional: ['тофу'],
             vegetables: ['брокколі', 'помідори'],
             sauce: ['особливий солодко-гострий соус']
@@ -84,7 +84,7 @@ var noodles_info = [
         id: 4,
         icon: 'assets/images/box_6.png',
         title: 'Бокс "Індонезійський стайл"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Свинина'],
             vegetables: ['горошок', 'перець болгарський', 'брокколі', 'мікс-овочі'],
@@ -127,7 +127,7 @@ var noodles_info = [
         id: 6,
         icon: 'assets/images/box_8.png',
         title: 'Бокс "Солодко-кислий"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Курка', 'яловичина'],
             vegetables: ['брокколі', 'перець зелений болгарський', 'мікс-овочі'],
@@ -151,7 +151,7 @@ var noodles_info = [
         id: 7,
         icon: 'assets/images/box_9.png',
         title: 'Бокс "Тайський карі"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Яловичина', 'курка'],
             seafood: ['креветки'],
@@ -171,7 +171,7 @@ var noodles_info = [
         id: 8,
         icon: 'assets/images/box_10.png',
         title: 'Бокс "Вегі"',
-        type: ['Вега'],
+        type: 'Вега',
         content: {
             vegetables: ['Брокколі', 'мікс-овочі', 'помідори', 'гриби'],
             additional: ['тофу', 'ананаси'],

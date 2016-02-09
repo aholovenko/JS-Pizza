@@ -8,7 +8,7 @@ var noodles_info = [
         id: 1,
         icon: 'assets/images/box_1.png',
         title: 'Бокс "Чорний Боб"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Яловичина','курка'],
             additional: ['яйце'],
@@ -60,7 +60,7 @@ var noodles_info = [
         id: 3,
         icon: 'assets/images/box_5.png',
         title: 'Бокс "Чілійський"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Курка','яловичина'],
             additional: ['тофу'],
@@ -85,7 +85,7 @@ var noodles_info = [
         id: 4,
         icon: 'assets/images/box_6.png',
         title: 'Бокс "Індонезійський стайл"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Свинина'],
             vegetables: ['горошок', 'перець болгарський', 'брокколі', 'мікс-овочі'],
@@ -128,7 +128,7 @@ var noodles_info = [
         id: 6,
         icon: 'assets/images/box_8.png',
         title: 'Бокс "Солодко-кислий"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Курка', 'яловичина'],
             vegetables: ['брокколі', 'перець зелений болгарський', 'мікс-овочі'],
@@ -152,7 +152,7 @@ var noodles_info = [
         id: 7,
         icon: 'assets/images/box_9.png',
         title: 'Бокс "Тайський карі"',
-        type: "З м'ясом",
+        type: "М'ясна",
         content: {
             meat: ['Яловичина', 'курка'],
             seafood: ['креветки'],
@@ -172,7 +172,7 @@ var noodles_info = [
         id: 8,
         icon: 'assets/images/box_10.png',
         title: 'Бокс "Вегі"',
-        type: ['Вега'],
+        type: 'Вега',
         content: {
             vegetables: ['Брокколі', 'мікс-овочі', 'помідори', 'гриби'],
             additional: ['тофу', 'ананаси'],
@@ -217,7 +217,7 @@ var ejs = require('ejs');
 
 exports.NoodlesMenu_OneItem = ejs.compile("<%\nfunction getIngredientsArray(noodles) {\n    //Отримує вміст піци\n    var content = noodles.content;\n    var result = [];\n\n    //Object.keys повертає масив ключів в об’єкті JavaScript\n\n    Object.keys(content).forEach(function (key) {\n\n        //a.concat(b) створює спільний масив із масивів a та b\n        result = result.concat(content[key]);\n    });\n\n    return result;\n}\n%>\n\n<div class=\"col-lg-4 col-md-6 col-xs-12 \">\n    <div class=\"thumbnail noodle-card\">\n        <img class=\"noodles\" src=\"<%= noodles.icon %>\" alt=\"Noodles\">\n\n        <% if(noodles.is_new) { %>\n        <span class=\"label label-info label-new\">Нова</span>\n        <% } else if(noodles.is_popular) { %>\n        <span class=\"label label-info label-new label-popular\">Популярна</span>\n        <% } %>\n\n        <span class=\"caption\">\n\n            <h3><%= noodles.title %></h3>\n            <h5>\n                <small><%= noodles.type %></small>\n            </h5>\n            <p>\n                <%= getIngredientsArray(noodles).join(\", \") %>\n            </p>\n            <img class=\"spicy\" src=\"<%= noodles.spicy_icon %>\">\n\n            <% if(noodles.small_size_only){ %>\n            <span class=\"choose1 choose3\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.small_size.size%></div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.small_size.weight%></div>\n            <div class=\"price\"><%=noodles.small_size.price%>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary buy-small\">Купити</a></span>\n\n            <% } if(noodles.big_size_only){ %>\n            <span class=\"choose2 choose3\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.big_size.size%></div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.big_size.weight%></div>\n             <div class=\"price\"><%=noodles.big_size.price%>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info buy-big\">Купити</a></span>\n\n            <% } if(noodles.both_sizes){ %>\n            <div class =\"pannel\"><span class=\"choose1\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.small_size.size%></div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.small_size.weight%></div>\n            <div class=\"price\"><%=noodles.small_size.price%>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary buy-small\">Купити</a></span>\n            <span class=\"choose2\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.big_size.size%></div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.big_size.weight%></div>\n             <div class=\"price\"><%=noodles.big_size.price%>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info buy-big\">Купити</a></span></div>\n            <% } %>\n\n        </span>\n    </div>\n</div>");
 
-exports.NoodlesCart_OneItem = ejs.compile("\n\n<div class=\"ordered-card\">\n    <div class=\"noodles-header\"><%= noodles.title %></div>\n\n    <div class=\"info-pan\">\n        <span class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%= noodles[size].size %></span>\n        <span class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></span>\n    </div>\n\n    <span class=\"btn-pan\">\n                      <span class=\"price\">Ціна: <%= noodles[size].price %> грн.</span>\n                      <button type=\"button\" class=\"btn btn-danger minus\"><span\n                                  class=\"glyphicon glyphicon-minus\"></span>\n                      </button> <span class=\"price\"><%= quantity %></span>\n                      <button type=\"button\" class=\"btn btn-success plus\"><span\n                                  class=\"glyphicon glyphicon-plus\"></span>\n                      </button>\n                      <button type=\"button\" class=\"btn btn-default cross\"><span\n                                  class=\"glyphicon glyphicon-remove\"></span>\n                      </button>\n                  </span>\n</div>");
+exports.NoodlesCart_OneItem = ejs.compile("<div class=\"ordered-card\">\n    <div class=\"noodles-header\"><%= noodles.title %></div>\n\n    <div class=\"info-pan\">\n        <span class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%= noodles[size].size %></span>\n        <span class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></span>\n    </div>\n\n    <span class=\"btn-pan\">\n                      <span class=\"price\">Ціна: <%= noodles[size].price %> грн.</span>\n                      <button type=\"button\" class=\"btn btn-danger minus\"><span\n                                  class=\"glyphicon glyphicon-minus\"></span>\n                      </button> <span class=\"price\"><%= quantity %></span>\n                      <button type=\"button\" class=\"btn btn-success plus\"><span\n                                  class=\"glyphicon glyphicon-plus\"></span>\n                      </button>\n                      <button type=\"button\" class=\"btn btn-default cross\"><span\n                                  class=\"glyphicon glyphicon-remove\"></span>\n                      </button>\n                  </span>\n</div>");
 
 },{"ejs":8}],4:[function(require,module,exports){
 /**
@@ -360,11 +360,13 @@ function check(){
         $('.total-price').hide();
         $('.order').prop("disabled", true);
         $('#motivation').show();
+        $('.order').css("animation", "none");
     } else {
         $('#sum').show();
         $('.total-price').show();
         $('.order').prop("disabled", false);
         $('#motivation').hide();
+        $('.order').css("animation", "pulsate 1.2s linear infinite");
     }
 }
 
@@ -440,7 +442,7 @@ var Noodles_List = require('../Noodles_List');
 //HTML едемент куди будуть додаватися піци
 var $noodles_list = $("#noodles_list");
 
-var items=0;
+var items = 0;
 
 function showNoodlesList(list) {
     //Очищаємо старі піци в кошику
@@ -476,24 +478,24 @@ function filterNoodles(filter) {
         //Якщо піца відповідає фільтру
         if (noodles.type == filter) {
             noodles_shown.push(noodles);
-            items+=1;
+            items += 1;
         }
     });
 
     //Показати відфільтровані піци
     showNoodlesList(noodles_shown);
-    items=0;
+    items = 0;
 }
 
 function initialiseMenu() {
     //Показуємо усі піци
-    items=8;
+    items = 8;
     showNoodlesList(Noodles_List)
-    items=0;
+    items = 0;
 }
 
 var NoodlesFilter = {
-    Meat: "З м'ясом",
+    Meat: "М'ясна",
     Seafood: "З морепродуктами",
     Vega: "Вега"
 };

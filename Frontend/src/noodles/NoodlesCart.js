@@ -90,11 +90,13 @@ function check(){
         $('.total-price').hide();
         $('.order').prop("disabled", true);
         $('#motivation').show();
+        $('.order').css("animation", "none");
     } else {
         $('#sum').show();
         $('.total-price').show();
         $('.order').prop("disabled", false);
         $('#motivation').hide();
+        $('.order').css("animation", "pulsate 1.2s linear infinite");
     }
 }
 
