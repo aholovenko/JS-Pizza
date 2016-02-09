@@ -1,7 +1,5 @@
 .right-pannel {
 
-  //!!!! scroll when more orders
-
   background: #f4f4f4;
   position: fixed !important;
   top: 50px;
@@ -56,10 +54,58 @@
   }
 
   .ordered-display {
-
     height: inherit;
+  }
 
-    //   background-color: blue;
+  #motivation {
+    margin-top:15%;
+    text-align: center;
+    padding: 5%;
+    font-size: 20px;
+
+    position: relative;
+
+    animation-name: moving-text;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  @keyframes moving-text {
+    0% {
+      color: red;
+      font-size: 18px;
+    }
+    12% {
+      font-size: 20px;
+    }
+    25% {
+      color: #ffa717;
+      font-size: 22px;
+    }
+    37% {
+      font-size: 24px;
+    }
+    50% {
+      color: blue;
+      font-size: 26px;
+    }
+    62% {
+      font-size: 24px;
+    }
+    75% {
+      color: green;
+      font-size: 22px;
+    }
+    87% {
+      font-size: 20px;
+    }
+    100% {
+      color: red;
+      font-size: 18px;
+    }
   }
 
   .ordered-card {
@@ -138,7 +184,6 @@
     }
   }
 
-  //!!!!!!!!!!!
   .icon2 {
     position: absolute;
     height: 80px;
@@ -182,15 +227,16 @@
       display: block;
 
       height: auto;
-      width: auto;
+      width: 50%;
 
       text-align: center;
 
-      font-size: 20px;
+      font-size: 17px;
 
-      margin-left:30%;
-      margin-right:30%;
-      margin-top: 35px;
+      margin-top: 10%;
+      margin-bottom: 10%;
+      margin-left: 25%;
+      margin-right: 25%;
 
       border-radius: 100px;
 

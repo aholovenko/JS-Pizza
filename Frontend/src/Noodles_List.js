@@ -107,7 +107,7 @@ var noodles_info = [
     {
         id: 5,
         icon: 'assets/images/box_7.png',
-        title: 'Бокс "Океанські смаколики"',
+        title: 'Бокс "Океанський"',
         type: 'З морепродуктами',
         content: {
             seafood: ['Креветки', 'кальмари'],
