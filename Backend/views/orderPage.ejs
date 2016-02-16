@@ -1,0 +1,59 @@
+<% include common/header.ejs %>
+<% include common/rightPanel.ejs %>
+
+<div class="main-container container-fluid">
+    <div class="row">
+
+        <div class="col-md-9 col-sm-6 left-pannel">
+            <div class="personal-data">
+                <div class="data-header">1. Контактні дані</div>
+                <span class="forms-pan col-md-7 col-sm-6">
+
+                    <form class="form-horizontal" id="form-to-fill-in" role="form" method="post">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-2">Ім'я:</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-success" name="forename"
+                                           placeholder="Введіть ім'я">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-2">Номер:</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-success" name="number"
+                                           placeholder="Введіть номер">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-2">Адреса:</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-success" name="address"
+                                           placeholder="Введіть адресу">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-info next">Далі<span
+                                    class="glyphicon glyphicon-chevron-right"></span></button>
+
+                    </form>
+
+                     </span>
+                <span class="order-info-pan col-md-5 col-sm-6"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include common/footer.ejs %>

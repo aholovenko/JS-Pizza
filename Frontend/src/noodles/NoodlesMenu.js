@@ -53,7 +53,7 @@ function filterNoodles(filter) {
     items = 0;
 }
 
-function initialiseMenu() {
+function initialiseMenu(server_list) {
     //Показуємо усі піци
     items = 8;
     showNoodlesList(Noodles_List)

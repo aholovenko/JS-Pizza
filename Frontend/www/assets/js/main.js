@@ -1,5 +1,47 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
+ * Created by chaika on 09.02.16.
+ */
+
+var API_URL = "http://localhost:5050";
+
+function backendGet(url, callback) {
+    $.ajax({
+        url: API_URL + url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+function backendPost(url, data, callback) {
+    $.ajax({
+        url: API_URL + url,
+        type: 'POST',
+        contentType : 'application/json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        fail: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+exports.getNoodlesList = function(callback) {
+    backendGet("/api/get-noodles-list/", callback);
+};
+
+exports.createOrder = function(order_info, callback) {
+    backendPost("/api/create-order/", order_info, callback);
+};
+},{}],2:[function(require,module,exports){
+/**
  * Created by diana on 12.01.16.
  */
 
@@ -10,7 +52,7 @@ var noodles_info = [
         title: 'Бокс "Чорний Боб"',
         type: "М'ясна",
         content: {
-            meat: ['Яловичина','курка'],
+            meat: ['Яловичина', 'курка'],
             additional: ['яйце'],
             vegetables: ['перець болгарський', 'брокколі', 'мікс-овочі'],
             sauce: ['соус з чорних бобів']
@@ -38,7 +80,7 @@ var noodles_info = [
         content: {
             seafood: ['Креветки', 'кальмари', 'восьминіг'],
             additional: ['тофу'],
-            vegetables: ['брокколі', 'мікс-овочі','горошок'],
+            vegetables: ['брокколі', 'мікс-овочі', 'горошок'],
             sauce: ['Малазійський соус']
         },
         spicy_icon: 'assets/images/spicy.jpg',
@@ -62,7 +104,7 @@ var noodles_info = [
         title: 'Бокс "Чілійський"',
         type: "М'ясна",
         content: {
-            meat: ['Курка','яловичина'],
+            meat: ['Курка', 'яловичина'],
             additional: ['тофу'],
             vegetables: ['брокколі', 'помідори'],
             sauce: ['особливий солодко-гострий соус']
@@ -194,7 +236,7 @@ var noodles_info = [
 ];
 
 module.exports = noodles_info;
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /**
  * Created by 1 on 03.02.2016.
  */
@@ -207,7 +249,7 @@ exports.get = function (key) {
 exports.set = function (key, value) {
     return basil.set(key, value);
 };
-},{"basil.js":7}],3:[function(require,module,exports){
+},{"basil.js":8}],4:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -215,11 +257,11 @@ exports.set = function (key, value) {
 var ejs = require('ejs');
 
 
-exports.NoodlesMenu_OneItem = ejs.compile("<%\nfunction getIngredientsArray(noodles) {\n    //Отримує вміст піци\n    var content = noodles.content;\n    var result = [];\n\n    //Object.keys повертає масив ключів в об’єкті JavaScript\n\n    Object.keys(content).forEach(function (key) {\n\n        //a.concat(b) створює спільний масив із масивів a та b\n        result = result.concat(content[key]);\n    });\n\n    return result;\n}\n%>\n\n<div class=\"col-lg-4 col-md-6 col-xs-12 \">\n    <div class=\"thumbnail noodle-card\">\n        <img class=\"noodles\" src=\"<%= noodles.icon %>\" alt=\"Noodles\">\n\n        <% if(noodles.is_new) { %>\n        <span class=\"label label-info label-new\">Нова</span>\n        <% } else if(noodles.is_popular) { %>\n        <span class=\"label label-info label-new label-popular\">Популярна</span>\n        <% } %>\n\n        <span class=\"caption\">\n\n            <h3><%= noodles.title %></h3>\n            <h5>\n                <small><%= noodles.type %></small>\n            </h5>\n            <p>\n                <%= getIngredientsArray(noodles).join(\", \") %>\n            </p>\n            <img class=\"spicy\" src=\"<%= noodles.spicy_icon %>\">\n\n            <% if(noodles.small_size_only){ %>\n            <span class=\"choose1 choose3\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.small_size.size%></div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.small_size.weight%></div>\n            <div class=\"price\"><%=noodles.small_size.price%>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary buy-small\">Купити</a></span>\n\n            <% } if(noodles.big_size_only){ %>\n            <span class=\"choose2 choose3\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.big_size.size%></div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.big_size.weight%></div>\n             <div class=\"price\"><%=noodles.big_size.price%>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info buy-big\">Купити</a></span>\n\n            <% } if(noodles.both_sizes){ %>\n            <div class =\"pannel\"><span class=\"choose1\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.small_size.size%></div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.small_size.weight%></div>\n            <div class=\"price\"><%=noodles.small_size.price%>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary buy-small\">Купити</a></span>\n            <span class=\"choose2\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.big_size.size%></div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.big_size.weight%></div>\n             <div class=\"price\"><%=noodles.big_size.price%>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info buy-big\">Купити</a></span></div>\n            <% } %>\n\n        </span>\n    </div>\n</div>");
+exports.NoodlesMenu_OneItem = ejs.compile("<%\nfunction getIngredientsArray(noodles) {\n    //Отримує вміст піци\n    var content = noodles.content;\n    var result = [];\n\n    //Object.keys повертає масив ключів в об’єкті JavaScript\n\n    Object.keys(content).forEach(function (key) {\n\n        //a.concat(b) створює спільний масив із масивів a та b\n        result = result.concat(content[key]);\n    });\n\n    return result;\n}\n%>\n\n<div class=\"col-lg-4 col-md-6 col-xs-12 \">\n    <div class=\"thumbnail noodle-card\">\n        <img class=\"noodles\" src=\"<%= noodles.icon %>\" alt=\"Noodles\">\n\n        <% if(noodles.is_new) { %>\n        <span class=\"label label-info label-new\">NEW</span>\n        <% } else if(noodles.is_popular) { %>\n        <span class=\"label label-info label-new label-popular\">POPULAR</span>\n        <% } %>\n\n        <span class=\"caption\">\n\n            <h3><%= noodles.title %></h3>\n            <h5>\n                <small><%= noodles.type %></small>\n            </h5>\n            <p>\n                <%= getIngredientsArray(noodles).join(\", \") %>\n            </p>\n            <img class=\"spicy\" src=\"<%= noodles.spicy_icon %>\">\n\n            <% if(noodles.small_size_only){ %>\n            <span class=\"choose1 choose3\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.small_size.size%></div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.small_size.weight%></div>\n            <div class=\"price\"><%=noodles.small_size.price%>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary buy-small\">Купити</a></span>\n\n            <% } if(noodles.big_size_only){ %>\n            <span class=\"choose2 choose3\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.big_size.size%></div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.big_size.weight%></div>\n             <div class=\"price\"><%=noodles.big_size.price%>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info buy-big\">Купити</a></span>\n\n            <% } if(noodles.both_sizes){ %>\n            <div class =\"pannel\"><span class=\"choose1\">\n            <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.small_size.size%></div>\n            <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.small_size.weight%></div>\n            <div class=\"price\"><%=noodles.small_size.price%>\n                <div class=\"uah\">грн.</div>\n            </div>\n                <a href=\"#\" class=\"btn btn-primary buy-small\">Купити</a></span>\n            <span class=\"choose2\">\n             <div class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%=noodles.big_size.size%></div>\n             <div class=\"weight\"><img src=\"assets/images/weight.svg\"> <%=noodles.big_size.weight%></div>\n             <div class=\"price\"><%=noodles.big_size.price%>\n                 <div class=\"uah\">грн.</div>\n             </div>\n             <a href=\"#\" class=\"btn btn-info buy-big\">Купити</a></span></div>\n            <% } %>\n\n        </span>\n    </div>\n</div>");
 
 exports.NoodlesCart_OneItem = ejs.compile("<div class=\"ordered-card\">\n    <div class=\"noodles-header\"><%= noodles.title %></div>\n\n    <div class=\"info-pan\">\n        <span class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%= noodles[size].size %></span>\n        <span class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></span>\n    </div>\n\n    <span class=\"btn-pan\">\n                      <span class=\"price\">Ціна: <%= noodles[size].price %> грн.</span>\n                      <button type=\"button\" class=\"btn btn-danger minus\"><span\n                                  class=\"glyphicon glyphicon-minus\"></span>\n                      </button> <span class=\"price\"><%= quantity %></span>\n                      <button type=\"button\" class=\"btn btn-success plus\"><span\n                                  class=\"glyphicon glyphicon-plus\"></span>\n                      </button>\n                      <button type=\"button\" class=\"btn btn-default cross\"><span\n                                  class=\"glyphicon glyphicon-remove\"></span>\n                      </button>\n                  </span>\n</div>");
 
-},{"ejs":8}],4:[function(require,module,exports){
+},{"ejs":9}],5:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -231,8 +273,17 @@ $(function () {
 
     var Noodles_List = require('./Noodles_List');
 
-    NoodlesCart.initialiseCart();
-    NoodlesMenu.initialiseMenu();
+    var API = require('./API');
+
+    API.getNoodlesList(function (err, noodles_list) {
+        if (err) {
+            return concole.error(err);
+        }
+        console.log("Noodles_List", noodles_list);
+        NoodlesCart.initialiseCart();
+        NoodlesMenu.initialiseMenu();
+    });
+
 
     $('#all').click(function () {
         NoodlesMenu.initialiseMenu();
@@ -266,8 +317,60 @@ $(function () {
         NoodlesCart.updateCart();
     });
 
+    $('.order').click(function () {
+        window.location = "http://localhost:5050/order.html";
+    });
+
+    $('#form-to-fill-in').validate({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            title: {
+                row: '.col-md-6',
+                validators: {
+                    notEmpty: {
+                        message: 'The forename is required'
+                    },
+                    stringLength: {
+                        max: 200,
+                        message: 'The title must be less than 200 characters long'
+                    }
+                }
+            },
+            number: {
+                row: '.col-md-6',
+                validators: {
+                    notEmpty: {
+                        message: 'The number is required'
+                    },
+                    stringLength: {
+                        max: 12,
+                        message: 'The title must be less than 200 characters long'
+                    }
+                }
+            },
+            address: {
+                row: '.col-md-6',
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    },
+                    stringLength: {
+                        max: 200,
+                        message: 'The title must be less than 200 characters long'
+                    }
+                }
+            }
+        }
+    });
+
+
 });
-},{"./Noodles_List":1,"./noodles/NoodlesCart":5,"./noodles/NoodlesMenu":6}],5:[function(require,module,exports){
+},{"./API":1,"./Noodles_List":2,"./noodles/NoodlesCart":6,"./noodles/NoodlesMenu":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -431,7 +534,7 @@ exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.NoodlesSize = NoodlesSize;
-},{"../Storage":2,"../Templates":3}],6:[function(require,module,exports){
+},{"../Storage":3,"../Templates":4}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -487,7 +590,7 @@ function filterNoodles(filter) {
     items = 0;
 }
 
-function initialiseMenu() {
+function initialiseMenu(server_list) {
     //Показуємо усі піци
     items = 8;
     showNoodlesList(Noodles_List)
@@ -504,7 +607,7 @@ exports.filterNoodles = filterNoodles;
 exports.initialiseMenu = initialiseMenu;
 
 exports.NoodlesFilter = NoodlesFilter;
-},{"../Noodles_List":1,"../Templates":3,"./NoodlesCart":5}],7:[function(require,module,exports){
+},{"../Noodles_List":2,"../Templates":4,"./NoodlesCart":6}],8:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -873,7 +976,7 @@ exports.NoodlesFilter = NoodlesFilter;
 
 })();
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1624,7 +1727,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":10,"./utils":9,"fs":11,"path":12}],9:[function(require,module,exports){
+},{"../package.json":11,"./utils":10,"fs":12,"path":13}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1767,7 +1870,7 @@ exports.cache = {
 };
 
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -1846,9 +1949,9 @@ module.exports={
   "directories": {}
 }
 
-},{}],11:[function(require,module,exports){
-
 },{}],12:[function(require,module,exports){
+
+},{}],13:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2076,7 +2179,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":13}],13:[function(require,module,exports){
+},{"_process":14}],14:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2169,4 +2272,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[4]);
+},{}]},{},[5]);
