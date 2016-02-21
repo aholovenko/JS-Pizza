@@ -11,49 +11,65 @@
 
                     <form class="form-horizontal" id="form-to-fill-in" role="form" method="post">
 
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="control-label col-sm-2">Ім'я:</label>
+                        <div class="form-group has-feedback fname">
+                            <div class="status">
+                                <div class="row">
+                                    <label class="control-label col-sm-2">Ім'я:</label>
 
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control form-control-success" name="forename"
-                                           placeholder="Введіть ім'я">
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="forename"
+                                               placeholder="Введіть ім'я" aria-describedby="helpBlock2">
+                                        <span id="helpBlock2" class="help-block">Введіть тільки власне ім’я, без цифр</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="control-label col-sm-2">Номер:</label>
+                        <div class="form-group has-feedback num">
+                            <div class="status">
+                                <div class="row">
+                                    <label class="control-label col-sm-2">Номер:</label>
 
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control form-control-success" name="number"
-                                           placeholder="Введіть номер">
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="number"
+                                               placeholder="Введіть номер" aria-describedby="helpBlock2">
+                                        <span id="helpBlock2" class="help-block">Введіть номер телефону у форматі +380...</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="control-label col-sm-2">Адреса:</label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control form-control-success" name="address"
-                                           placeholder="Введіть адресу">
+                        <div class="form-group has-feedback">
+                            <div class="status">
+                                <div class="row">
+                                    <label class="control-label col-sm-2">Адреса:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control " id="address"
+                                               placeholder="Введіть адресу" aria-describedby="helpBlock2">
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-info next">Далі<span
-                                    class="glyphicon glyphicon-chevron-right"></span></button>
 
                     </form>
 
-                     </span>
-                <span class="order-info-pan col-md-5 col-sm-6"></span>
-            </div>
+<button type="button" class="btn btn-info next">Далі<span
+            class="glyphicon glyphicon-chevron-right"></span></button>
+
+                     </span></div>
+            <span class="order-info-pan col-md-5 col-sm-6"></span>
+
+
+            <div id="googleMap"></div>
+            <div id="liqpay"></div>
+
         </div>
     </div>
 </div>
+
+<script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCdm7I_lfOWmpDHZ7zRUr6GLNWfgBGeiJU"></script>
+<script src="//static.liqpay.com/libjs/checkout.js"></script>
 
 <% include common/footer.ejs %>

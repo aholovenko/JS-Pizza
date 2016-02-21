@@ -249,7 +249,7 @@ exports.get = function (key) {
 exports.set = function (key, value) {
     return basil.set(key, value);
 };
-},{"basil.js":8}],4:[function(require,module,exports){
+},{"basil.js":9}],4:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -261,7 +261,86 @@ exports.NoodlesMenu_OneItem = ejs.compile("<%\nfunction getIngredientsArray(nood
 
 exports.NoodlesCart_OneItem = ejs.compile("<div class=\"ordered-card\">\n    <div class=\"noodles-header\"><%= noodles.title %></div>\n\n    <div class=\"info-pan\">\n        <span class=\"size\"><img src=\"assets/images/size-icon.svg\"> <%= noodles[size].size %></span>\n        <span class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= noodles[size].weight %></span>\n    </div>\n\n    <span class=\"btn-pan\">\n                      <span class=\"price\">Ціна: <%= noodles[size].price %> грн.</span>\n                      <button type=\"button\" class=\"btn btn-danger minus\"><span\n                                  class=\"glyphicon glyphicon-minus\"></span>\n                      </button> <span class=\"price\"><%= quantity %></span>\n                      <button type=\"button\" class=\"btn btn-success plus\"><span\n                                  class=\"glyphicon glyphicon-plus\"></span>\n                      </button>\n                      <button type=\"button\" class=\"btn btn-default cross\"><span\n                                  class=\"glyphicon glyphicon-remove\"></span>\n                      </button>\n                  </span>\n</div>");
 
-},{"ejs":9}],5:[function(require,module,exports){
+},{"ejs":10}],5:[function(require,module,exports){
+/**
+ * Created by 1 on 17.02.2016.
+ */
+
+$(function () {
+
+    function initialize() {
+        var mapProp = {center: new google.maps.LatLng(50.464379, 30.519131), zoom: 15};
+        var html_element = document.getElementById("googleMap");
+        var map = new google.maps.Map(html_element, mapProp);
+
+        var point = new google.maps.LatLng(50.464379, 30.519131);
+        var marker = new google.maps.Marker({position: point, map: map, icon: "assets/images/map-icon.png"});
+        // marker.setMap(null);
+
+        google.maps.event.addListener(map, 'click', function (me) {
+            var coordinates = me.latLng;
+        });
+
+        function geocodeLatLng(latlng, callback) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'location': latlng}, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK && results[1]) {
+                    var adress = results[1].formatted_address;
+                    callback(null, adress);
+                } else {
+                    callback(new Error("Can't find adress"));
+                }
+            });
+        }
+
+        google.maps.event.addListener(map, 'click', function (me) {
+            var coordinates = me.latLng;
+            geocodeLatLng(coordinates, function (err, adress) {
+                if (!err) {
+                    console.log(adress);
+                } else {
+                    console.log("Немає адреси")
+                }
+            })
+        });
+
+        function geocodeAddress(adress, callback) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK && results[0]) {
+                    var coordinates = results[0].geometry.location;
+                    callback(null, coordinates);
+                } else {
+                    callback(new Error("Can not find the adress"));
+                }
+            });
+        }
+
+        function calculateRoute(A_latlng, B_latlng, callback) {
+            var directionService = new google.maps.DirectionsService();
+            directionService.route({
+                origin: A_latlng,
+                destination: B_latlng,
+                travelMode: google.maps.TravelMode["DRIVING"]
+            }, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    var leg = response.routes[0].legs[0];
+                    callback(null, {duration: leg.duration});
+                } else {
+                    callback(new Error("Can' not find direction"));
+                }
+            });
+
+        }
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+});
+},{}],6:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -272,6 +351,8 @@ $(function () {
     var NoodlesCart = require('./noodles/NoodlesCart');
 
     var Noodles_List = require('./Noodles_List');
+
+    require('./googleMap');
 
     var API = require('./API');
 
@@ -321,56 +402,74 @@ $(function () {
         window.location = "http://localhost:5050/order.html";
     });
 
-    $('#form-to-fill-in').validate({
-        framework: 'bootstrap',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            title: {
-                row: '.col-md-6',
-                validators: {
-                    notEmpty: {
-                        message: 'The forename is required'
-                    },
-                    stringLength: {
-                        max: 200,
-                        message: 'The title must be less than 200 characters long'
-                    }
-                }
-            },
-            number: {
-                row: '.col-md-6',
-                validators: {
-                    notEmpty: {
-                        message: 'The number is required'
-                    },
-                    stringLength: {
-                        max: 12,
-                        message: 'The title must be less than 200 characters long'
-                    }
-                }
-            },
-            address: {
-                row: '.col-md-6',
-                validators: {
-                    notEmpty: {
-                        message: 'The address is required'
-                    },
-                    stringLength: {
-                        max: 200,
-                        message: 'The title must be less than 200 characters long'
-                    }
-                }
-            }
+
+    $("#forename").focusout(function () {
+        if ($("#forename").val() == "" || /^[0-9]+$/.test($("#forename").val())) {
+            console.log(/[0-9]+!@$%^&*-_=\?.,/.test($("#forename").val()));
+            $(".fname").find(".status").attr("class", "has-error");
+            $(".fname").find(".help-block").css("display", "inline");
+            $(".fname").find("#forename").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+        } else {
+            $(".fname").find(".status").attr("class", "has-success");
+            $(".fname").find("#forename").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
         }
     });
 
+    $("#forename").focusin(function () {
+        $(".fname").find(".has-error").attr("class", "status");
+        $(".fname").find(".has-success").attr("class", "status");
+        $(".fname").find(".glyphicon-remove").css("display", "none");
+        $(".fname").find(".glyphicon-ok").css("display", "none");
+        $(".fname").find(".help-block").css("display", "none");
+    });
 
+    $("#number").focusout(function () {
+        if ($("#number").val() == "" || ($("#number").val().includes("+380")) == false || $("#number").val().length != 13 || !/[0-9]+/.test($("#number").val())) {
+            $(".num").find(".status").attr("class", "has-error");
+            $(".num").find(".help-block").css("display", "inline");
+            $(".num").find("#number").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+        } else {
+            $(".num").find(".status").attr("class", "has-success");
+            $(".num").find("#number").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+        }
+    });
+
+    $("#number").focusin(function () {
+        $(".num").find(".has-error").attr("class", "status");
+        $(".num").find(".has-success").attr("class", "status");
+        $(".num").find(".glyphicon-remove").css("display", "none");
+        $(".num").find(".glyphicon-ok").css("display", "none");
+        $(".num").find(".help-block").css("display", "none");
+    });
+
+    $('.next').click(function () {
+        API.createOrder(
+            {
+                name: $("#forename").val(),
+                phone: $("#phone").val(),
+                noodles: NoodlesCart.getNoodlesInCart()
+            },
+            function (err, result) {
+                if (err) {
+                    alert("Can't create order");
+                } else {
+                    LiqPayCheckout.init({
+                        data: result.data,
+                        signature: result.signature,
+                        embedTo: "#liqpay",
+                        mode: "popup"
+                    }).on("liqpay.callback", function (data) {
+                        console.log(data.status);
+                        console.log(data);
+                    }).on("liqpay.ready", function (data) {
+                    }).on("liqpay.close", function (data) {
+                    });
+                }
+            });
+
+    })
 });
-},{"./API":1,"./Noodles_List":2,"./noodles/NoodlesCart":6,"./noodles/NoodlesMenu":7}],6:[function(require,module,exports){
+},{"./API":1,"./Noodles_List":2,"./googleMap":5,"./noodles/NoodlesCart":7,"./noodles/NoodlesMenu":8}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -534,7 +633,7 @@ exports.getNoodlesInCart = getNoodlesInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.NoodlesSize = NoodlesSize;
-},{"../Storage":3,"../Templates":4}],7:[function(require,module,exports){
+},{"../Storage":3,"../Templates":4}],8:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -607,7 +706,7 @@ exports.filterNoodles = filterNoodles;
 exports.initialiseMenu = initialiseMenu;
 
 exports.NoodlesFilter = NoodlesFilter;
-},{"../Noodles_List":2,"../Templates":4,"./NoodlesCart":6}],8:[function(require,module,exports){
+},{"../Noodles_List":2,"../Templates":4,"./NoodlesCart":7}],9:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -976,7 +1075,7 @@ exports.NoodlesFilter = NoodlesFilter;
 
 })();
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1727,7 +1826,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":11,"./utils":10,"fs":12,"path":13}],10:[function(require,module,exports){
+},{"../package.json":12,"./utils":11,"fs":13,"path":14}],11:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1870,7 +1969,7 @@ exports.cache = {
 };
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -1949,9 +2048,9 @@ module.exports={
   "directories": {}
 }
 
-},{}],12:[function(require,module,exports){
-
 },{}],13:[function(require,module,exports){
+
+},{}],14:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2179,7 +2278,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":14}],14:[function(require,module,exports){
+},{"_process":15}],15:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2272,4 +2371,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[5]);
+},{}]},{},[6]);
