@@ -3,15 +3,13 @@
  */
 exports.mainPage = function(req, res) {
     res.render('mainPage', {
-        pageTitle: 'Lapshy4ka',
-        showOrderButton:false
+        pageTitle: 'Lapshy4ka'
     });
 };
 
 exports.orderPage = function(req, res) {
     res.render('orderPage', {
-        pageTitle: 'Замовлення - Lapshy4ka',
-        showOrderButton:true
+        pageTitle: 'Замовлення - Lapshy4ka'
     });
 
 };

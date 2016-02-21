@@ -1,15 +1,14 @@
 .personal-data {
-  margin-top: 17%;
-  display: block;
   padding: 2%;
-  border: 1px solid black;
-  height: 300px;
+  height: auto;
+  font-family:"Verdana";
 
   .data-header {
     font-size: 20px;
     font-family: "Segoe Script";
     margin-left: 5%;
     margin-bottom: 3%;
+    text-align: center;
   }
 
   .forms-pan {
@@ -18,7 +17,6 @@
   }
 
   .form-horizontal {
-    border: 1px solid red;
     padding: 5px;
   }
 
@@ -45,6 +43,27 @@
   }
   #form-to-fill-in .selectContainer .form-control-feedback {
     right: 25px;
+  }
+
+  .order-info-pan{
+    display: inline-block;
+    float: left;
+    background-color: lighten(@mainColor,50%);
+    margin:0px;
+    min-height:170px;
+    min-width:300px;
+    border-left:5px solid darken(@mainColor,20%);
+    padding:2%;
+  }
+
+  h4{
+    font-family:"Segoe Print";
+    text-align: center;
+    margin-bottom:7%;
+  }
+
+  h5{
+    margin-bottom:8%;
   }
 
 }

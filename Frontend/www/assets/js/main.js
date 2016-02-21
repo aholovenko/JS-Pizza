@@ -263,6 +263,9 @@ exports.NoodlesCart_OneItem = ejs.compile("<div class=\"ordered-card\">\n    <di
 
 },{"ejs":10}],5:[function(require,module,exports){
 /**
+ * Created by 1 on 21.02.2016.
+ */
+/**
  * Created by 1 on 17.02.2016.
  */
 
@@ -274,72 +277,129 @@ $(function () {
         var map = new google.maps.Map(html_element, mapProp);
 
         var point = new google.maps.LatLng(50.464379, 30.519131);
-        var marker = new google.maps.Marker({position: point, map: map, icon: "assets/images/map-icon.png"});
-        // marker.setMap(null);
+        var marker = new google.maps.Marker({
+            position: point,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: "assets/images/map-icon.png"
+        });
+
+        var coordinates;
+        var marker_home;
+        var counter = 0;
 
         google.maps.event.addListener(map, 'click', function (me) {
-            var coordinates = me.latLng;
+            if (counter > 0) {
+                marker_home.setMap(null);
+            }
+            counter++;
+            coordinates = me.latLng;
+            marker_home = new google.maps.Marker({
+                position: coordinates,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                icon: "assets/images/home-icon.png"
+            });
+            calculateRoute(point, coordinates, function () {
+                console.log(this);
+            });
         });
 
         function geocodeLatLng(latlng, callback) {
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({'location': latlng}, function (results, status) {
                 if (status === google.maps.GeocoderStatus.OK && results[1]) {
-                    var adress = results[1].formatted_address;
-                    callback(null, adress);
+                    var address = results[1].formatted_address;
+                    callback(null, address);
                 } else {
                     callback(new Error("Can't find adress"));
                 }
             });
         }
 
+        var ad = $(".ad");
+
         google.maps.event.addListener(map, 'click', function (me) {
-            var coordinates = me.latLng;
-            geocodeLatLng(coordinates, function (err, adress) {
+            coordinates = me.latLng;
+            geocodeLatLng(coordinates, function (err, address) {
                 if (!err) {
-                    console.log(adress);
+                    console.log(address);
+                    $('#order-address').text(address);
+                    $("#address").val(address);
+                    ad.find(".status").attr("class", "has-success");
+                    ad.find("#address").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
                 } else {
                     console.log("Немає адреси")
                 }
             })
         });
 
-        function geocodeAddress(adress, callback) {
+        $("#address").focusin(function () {
+            ad.find(".has-success").attr("class", "status");
+            ad.find(".glyphicon-ok").css("display", "none");
+        });
+
+        function geocodeAddress(address, callback) {
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status === google.maps.GeocoderStatus.OK && results[0]) {
-                    var coordinates = results[0].geometry.location;
+                    coordinates = results[0].geometry.location;
                     callback(null, coordinates);
+                    if (marker_home != null || counter > 0) {
+                        marker_home.setMap(null);
+                    }
+                    $('#order-address').val(address);
+                    ad.find(".status").attr("class", "has-success");
+                    ad.find("#address").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+                    marker_home = new google.maps.Marker({
+                        position: coordinates,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        icon: "assets/images/home-icon.png"
+                    });
+                    calculateRoute(point, coordinates, function () {
+                        console.log(this);
+                    });
                 } else {
                     callback(new Error("Can not find the adress"));
                 }
             });
         }
 
+        $("#address").focusout(function () {
+            var address = $("#address").val();
+            geocodeAddress(address, function () {
+                console.log(this);
+            });
+            $('#order-address').text(address);
+        });
+
         function calculateRoute(A_latlng, B_latlng, callback) {
             var directionService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+            directionsDisplay.setMap(map);
             directionService.route({
                 origin: A_latlng,
                 destination: B_latlng,
                 travelMode: google.maps.TravelMode["DRIVING"]
             }, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
+        //            directionsDisplay.setDirections(response);
                     var leg = response.routes[0].legs[0];
                     callback(null, {duration: leg.duration});
+                    $("#time").text(leg.duration.text);
+                    console.log(leg.duration);
                 } else {
                     callback(new Error("Can' not find direction"));
                 }
             });
-
         }
-
     }
+
     google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
-
-});
+})
+;
 },{}],6:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
@@ -371,7 +431,7 @@ $(function () {
     });
 
     $('#home').click(function () {
-        window.location.reload();
+        window.location = "http://localhost:5050/";
     });
 
     $('#icon').click(function () {
@@ -402,71 +462,87 @@ $(function () {
         window.location = "http://localhost:5050/order.html";
     });
 
+    var fname = $(".fname");
+    var num = $(".num");
+    var right_input = false;
 
     $("#forename").focusout(function () {
         if ($("#forename").val() == "" || /^[0-9]+$/.test($("#forename").val())) {
-            console.log(/[0-9]+!@$%^&*-_=\?.,/.test($("#forename").val()));
-            $(".fname").find(".status").attr("class", "has-error");
-            $(".fname").find(".help-block").css("display", "inline");
-            $(".fname").find("#forename").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+            right_input = false;
+            fname.find(".status").attr("class", "has-error");
+            fname.find(".help-block").css("display", "inline");
+            fname.find("#forename").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
         } else {
-            $(".fname").find(".status").attr("class", "has-success");
-            $(".fname").find("#forename").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+            right_input = true;
+            fname.find(".status").attr("class", "has-success");
+            fname.find("#forename").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
         }
     });
 
     $("#forename").focusin(function () {
-        $(".fname").find(".has-error").attr("class", "status");
-        $(".fname").find(".has-success").attr("class", "status");
-        $(".fname").find(".glyphicon-remove").css("display", "none");
-        $(".fname").find(".glyphicon-ok").css("display", "none");
-        $(".fname").find(".help-block").css("display", "none");
+        fname.find(".has-error").attr("class", "status");
+        fname.find(".has-success").attr("class", "status");
+        fname.find(".glyphicon-remove").css("display", "none");
+        fname.find(".glyphicon-ok").css("display", "none");
+        fname.find(".help-block").css("display", "none");
     });
 
     $("#number").focusout(function () {
         if ($("#number").val() == "" || ($("#number").val().includes("+380")) == false || $("#number").val().length != 13 || !/[0-9]+/.test($("#number").val())) {
-            $(".num").find(".status").attr("class", "has-error");
-            $(".num").find(".help-block").css("display", "inline");
-            $(".num").find("#number").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+            right_input = false;
+            num.find(".status").attr("class", "has-error");
+            num.find(".help-block").css("display", "inline");
+            num.find("#number").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
         } else {
-            $(".num").find(".status").attr("class", "has-success");
-            $(".num").find("#number").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+            right_input = true;
+            num.find(".status").attr("class", "has-success");
+            num.find("#number").after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
         }
     });
 
     $("#number").focusin(function () {
-        $(".num").find(".has-error").attr("class", "status");
-        $(".num").find(".has-success").attr("class", "status");
-        $(".num").find(".glyphicon-remove").css("display", "none");
-        $(".num").find(".glyphicon-ok").css("display", "none");
-        $(".num").find(".help-block").css("display", "none");
+        num.find(".has-error").attr("class", "status");
+        num.find(".has-success").attr("class", "status");
+        num.find(".glyphicon-remove").css("display", "none");
+        num.find(".glyphicon-ok").css("display", "none");
+        num.find(".help-block").css("display", "none");
+    });
+
+    $("#address").focusin(function () {
+        $(".ad").find(".has-error").attr("class", "status");
+        $(".ad").find(".glyphicon-remove").css("display", "none");
     });
 
     $('.next').click(function () {
-        API.createOrder(
-            {
-                name: $("#forename").val(),
-                phone: $("#phone").val(),
-                noodles: NoodlesCart.getNoodlesInCart()
-            },
-            function (err, result) {
-                if (err) {
-                    alert("Can't create order");
-                } else {
-                    LiqPayCheckout.init({
-                        data: result.data,
-                        signature: result.signature,
-                        embedTo: "#liqpay",
-                        mode: "popup"
-                    }).on("liqpay.callback", function (data) {
-                        console.log(data.status);
-                        console.log(data);
-                    }).on("liqpay.ready", function (data) {
-                    }).on("liqpay.close", function (data) {
-                    });
-                }
-            });
-
+        if (right_input) {
+            API.createOrder(
+                {
+                    name: $("#forename").val(),
+                    phone: $("#phone").val(),
+                    noodles: NoodlesCart.getNoodlesInCart()
+                },
+                function (err, result) {
+                    if (err) {
+                        alert("Can't create order");
+                    } else {
+                        LiqPayCheckout.init({
+                            data: result.data,
+                            signature: result.signature,
+                            embedTo: "#liqpay",
+                            mode: "popup"
+                        }).on("liqpay.callback", function (data) {
+                            console.log(data.status);
+                            console.log(data);
+                        }).on("liqpay.ready", function (data) {
+                        }).on("liqpay.close", function (data) {
+                        });
+                    }
+                });
+        } else {
+            $(".help-block").css("display", "inline");
+            $(".status").attr("class", "has-error");
+            $(".ad").find("#number").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+        }
     })
 });
 },{"./API":1,"./Noodles_List":2,"./googleMap":5,"./noodles/NoodlesCart":7,"./noodles/NoodlesMenu":8}],7:[function(require,module,exports){
