@@ -23,7 +23,6 @@ var LIQPAY_PUBLIC_KEY = 'i79244164738';
 var LIQPAY_PRIVATE_KEY ='UFg2SR22PPAaWRGa9QqfdNEBIZJgbSEjgICkU0uT';
 
 exports.createOrder = function (req, res) {
-
     var order_info = req.body;
     console.log("Creating Order", order_info);
 

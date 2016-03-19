@@ -416,9 +416,10 @@ $(function () {
 
     var API = require('./API');
 
+
     API.getNoodlesList(function (err, noodles_list) {
         if (err) {
-            return concole.error(err);
+            return console.error(err);
         }
         console.log("Noodles_List", noodles_list);
         NoodlesCart.initialiseCart();
@@ -457,13 +458,20 @@ $(function () {
         NoodlesCart.totalReset();
         NoodlesCart.updateCart();
     });
+    var order_page = false;
 
     $('.order').click(function () {
         window.location = "http://localhost:5050/order.html";
+       order_page=true;
     });
+
+    if(order_page){
+        $('.minus').hide();
+    }
 
     var fname = $(".fname");
     var num = $(".num");
+    var ad = $(".ad");
     var right_input = false;
 
     $("#forename").focusout(function () {
@@ -509,8 +517,8 @@ $(function () {
     });
 
     $("#address").focusin(function () {
-        $(".ad").find(".has-error").attr("class", "status");
-        $(".ad").find(".glyphicon-remove").css("display", "none");
+        ad.find(".has-error").attr("class", "status");
+        ad.find(".glyphicon-remove").css("display", "none");
     });
 
     $('.next').click(function () {
@@ -519,6 +527,7 @@ $(function () {
                 {
                     name: $("#forename").val(),
                     phone: $("#phone").val(),
+                    addres: $("#address").val(),
                     noodles: NoodlesCart.getNoodlesInCart()
                 },
                 function (err, result) {
@@ -534,14 +543,16 @@ $(function () {
                             console.log(data.status);
                             console.log(data);
                         }).on("liqpay.ready", function (data) {
+
                         }).on("liqpay.close", function (data) {
+                            window.location = "http://localhost:5050/";
                         });
                     }
                 });
         } else {
             $(".help-block").css("display", "inline");
             $(".status").attr("class", "has-error");
-            $(".ad").find("#number").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+            ad.find("#number").after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
         }
     })
 });
